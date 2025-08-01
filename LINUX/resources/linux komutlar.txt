@@ -1,0 +1,73 @@
+# PARAMETRESİZ KULLANIM
+
+ls                  # Salt olarak kullanıldığında aktif klasördeki dosya ve klasörleri listeler. 
+ls Masaüstü         # Bu komutla aktif klasördeki Masaüstü klasörünün içeriği görüntülenir.
+ls ..               # Bu komutla bir üst klasörün içeriği listelenir.
+ls ../*.htm         # Bu komutla bir üst klasördeki uzantısı htm olan dosyalar listelenir.
+ls ~                # Bu komutla home dizininizin içeriği görüntülenir.
+ls ../../../bin/    # Masaüstü dizininden üc dizin üste çıkıp bin klasörünün içerisindekileri listeler.
+ls deneme.htm       # Bu komutla aktif klasördeki deneme.htm dosyası listelenir.
+ls a??b?.txt        # 5 Harfli olan ilk harfi a 4. harfi v olan ve uzantısı txt olanları listeler 
+
+# PARAMETRELİ KULLANIM
+
+
+ls -l Masaüstü      # Masaüstündeki tüm dosyaları ayrıntılarıyla listeler.
+ls -a               # gizli dosya ve klasörleri de göstermesini sağlar. Linux'ta gizli dosya ve klasörler . (nokta) karakteriyle başlar. 
+# NOT: Linux, her yeni klasör oluşturulduğunda ilgili klasöre otomatik olarak . ve .. gizli klasörlerini yerleştirir. Bu klasörler tahmin edebileceğiniz gibi geçerli klasör ve bir üst klasörü temsil ederler.
+ls -R               # ilgili klasörü alt klasörleriyle beraber listelemesini sağlar.
+ls -lh              # -h parametresi -l ile kullanılınca anlam kazanır ve dosyaların (byte, KB, MB veya GB) vb. şekilde boyutlarını gösterir. Varsayılanda byte gösterir.
+
+#NOT: Parametre kullanırken birden fazla parametre kullanacaksanız parametreleri ard arda eklersiniz. Her parametre için farklı bir tire işareti kullanmazsınız ve parametrelerin sırası da önemli değildir.
+
+ls -laRh Belgeler   # Bu komut aktif klasördeki Belgeler klasöründeki tüm dosya ve klasörleri, gizliler dahil olmak üzere, ayrıntılı olarak, alt klasörler de dahil olmak üzere ve dosya ve klasörlerin boyut bilgilerini kolay okunur şekilde vererek listeler.
+
+cd klasör                    # cd, dizinler arasında geçiş yapmak istediğimizde kullanabileceğimiz bir komuttur. Yani aktif dizini değiştirir.
+cd /home/bekir/Belgeler      # Eğer klasörün başına / işaretini koyarsak Linux ilgili klasörü en üst klasörde arayacaktır, aksi takdirde aktif klasörde arayacaktır.
+cd Masaüstü/test             # Kullanıcı dizininde iken masaüstündeki test kalsörünü aktif dizin yapar.
+cd Masaüstü/deneme/..        # Deneme klasörüne girer sonra bir üst dizine gelerek Masaüstünü aktif dizin yapar.
+cd .                         # Bulunduğun kalsör de kalırsın
+
+# Nokta işareti aktif klasörü belirtir.
+# İki nokta bir üstü dizini ifade eder.
+cd "Masaüstü/Deneme Dosyası"  # Linux'ta bütün komutlarda geçerli olmak üzere bir komuta bir kelimeden fazla (yani boşluk içeren) bir argüman vermemiz gerekiyorsa ilgili metni çift tırnak arasına alırız.
+
+
+
+
+﻿mkdir "Yeni Klasör"                   # Yeni Klaösr isminde dizin oluşturur.
+mkdir -p "Ana Klaösör/Alt Klasör"     # Alt Klasörlü Dosya Oluşturma
+
+
+rmdir "Yeni Klasör"                    # Belirtilen dizini siler.
+rmdir -p "Ana Klaösör/Alt Klasör"      # -p paramtertesi belirtilen yolu sondan başa doğru siler.
+rmdir *                                # Boş olan bu dizindeki tüm klasörleri sil.
+
+#NOT: Bu komut klasörleri çöp kutusuna taşımadan, direkt olarak siler. Ayrıca silinecek dizinlerin boş olması gerekir.
+
+
+
+# YENİ DOSYA OLUŞTURMA
+touch dosya_adi                                 # Birleşik yazılırsa kullanılır.
+touch "Dosya Adı"                               # Kelimeler arası boşluk varsa kullanılır.
+
+touch "Dosya Adı 1" "Dosya Adı 2" "Dosya Adı 3" # Tek seferde birden fazla dosya oluşturulabilir.
+
+# DOSYA SİLME
+# rm silinecek_dosya_adı
+rm "Dosya Adı 2"                # Dosya Adı 2 Silindi.
+rm "Dosya Adı 2" "Dosya Adı 3"  # Dosya Adı 2 ve Dosya Adı 3 silindi
+rm -d "Dizin Adı"               # Belirtilen boş dizinleri siler.
+rm -r "Yeni Klasör"             # Alt dosyalar ile birlikte içi dolu olsun olmasın nekadar dosya varsa siler.
+
+
+# DOSYA KOPYALAMA
+cp kaynak hedef
+cp "Masaüstü/ornek_script.sh" /home/erdem/      # Masaüstündeki ornek_script.sh dosyasını erdem dizinine kopyaladı.
+
+# DOSYA TAŞIMA VE İSİM DEĞİŞTİRME
+# mv kaynak hedef
+mv "Masaüstü/ornek_script.sh" /home/erdem/      # Masaüstündeki ornek_script.sh dosyasını erdem dizinine taşıdı.
+
+# mv mevcut_dosya_adi yeni_dosya_adi 
+mv ornek_script.sh "Yeni Script Dosyam.sh"      # ornek_script.sh ismini Yeni Script Dosyam.sh olarak değiştirdi.

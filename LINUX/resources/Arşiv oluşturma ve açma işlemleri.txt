@@ -1,0 +1,31 @@
+Arşiv oluşturma ve açma işlemleri
+
+Arşivleme için tar komutu kullanılır. Sadece dosyaları bir araya toplar.
+Dikkat: Sıkıştırma yapmaz.
+
+Herhangi bir klasörde bulunan dosyaları ve klasörleri bir arşiv olarak toplamak için kullanılır.
+
+tar -c Arşiv dosyası oluştur demektir
+	-f parametresi dosya ismini belirteceğim demektir
+
+tar -cf yedek.tar file1 file2 file3 
+
+veya
+
+tar -cf yedek.tar *
+
+Bunun yerine * konularak tüm dosyaları arşive ekle denilebilir.
+
+Arşivden çıkarmak için
+
+tar -xf yedek.tar file1
+
+#Arşivden sadece 1 tane doyayı çıkarır ->file1
+
+tar -xf yedek.tar
+
+#Arşivdeki tüm dosyaları çıkarır
+
+#Eğer -v parametresi eklenirse çıkarılan veya eklenen dosyaları terminalde listeler
+
+tar -xvf yedek.tar

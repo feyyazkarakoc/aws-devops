@@ -1,0 +1,100 @@
+Kullanıcı İşlemleri
+
+#Bazı komutlar kullanıcı yetkisi gerektirmektedir. Bunu sağlamak için;
+sudo su #su->super user olarak, do-> yap !
+
+Kullanıcı ekleme işlemi
+adduser ali
+
+parola
+tam isim
+Oda no..
+..
+..
+#Enter varsayılanda evet demektir.
+
+GUI 'den kullanıcıyı göster..
+
+Kullanıcı silme işlemi
+deluser ali #Sadece kullanıcıyı siler, home dizinini silmez, yani kullanıcı dosyalarını silmez
+		#Bunun bir amacıda güvenliği sağlamaktır. Dosyaları erişilebilir, kalmaktadır.
+
+GUI 'den kullanıcı dizinini göster..
+man deluser #Komutun kullanımını gösterir. Burada --remove-home parametresi vardır.
+
+deluser --remove-home ali
+
+Kullanıcı şifresini değiştirme işlemi
+passwd ali
+Yeni parolası: 2
+Yeni parolasını tekrar girin: 2
+
+Kullanıcıyı Kilitlemek ve Açmak
+passwd --help
+-l parametresi kilitler.
+passwd -l ali
+
+-u parametresi kilidi açar.
+passwd -u ali
+
+
+
+
+Tüm Kullanıcıları görebilmek için;
+
+cat /etc/passwd #Dosyası kullanılır
+
+#- Her sütun : ile ayrılır
+1- Birinci sütun: Kullanıcı adı
+2- İkinci sütun: Eskiden parola hashleri tutulurdu şimdi başka bir dosyaya taşıındı(1985 gibi taşındı)
+3- Üçüncü sütun: Kullanıcı id 'si
+4- Dördüncü sütun: Grup id 'si
+5- :Kullanıcı Full -name ve diğer bilgileri
+6- :Kullanıcının kendine ait dizini(root için istisnai bir dosyadır)
+7- :Kullanıncının varsayılan shell erişim programı
+
+Neden bu kadar çok kullanıcı vardır denilebilir?
+
+Aslında burada hepsi gerçek birer kullanıcı değildir. Sistemdeki uygulamaların bazı dosya-dizin ve servislere
+erişebilmesi için oluşturulan sanal kullanıcılardır.
+
+Login erişimnden de anlaşılacağı üzere login erişimleri de yoktur.
+
+
+Kullanıcı Parolalarını okumak için;
+
+cat /etc/shadow
+
+Normal kullanıcı erişemez, sadece sistem yöneticisi yetisi sahibi olan root kullanıcısı erişebilir.
+
+
+ls -al shadow --> Dersek yetkileri görebiliriz
+
+#KullancıAdı:HashlenmişParola şeklinde bir tablo gelir!
+sudo cat /etc/shadow
+
+$ ->Parola kendi içinde karakteri ile ayrılır
+
+İlk kısım hash algoritması ifade eder - $6$ -> sha256
+İkinci kısım salt -> DUCHEEFDSX55
+Üçüncü kısım -> hashlenmiş parola
+Dördüncü kısım -> Sayı - Hangi gün değiştiğini ifade eder
+Beşinci kısım -> Parola süresini ve uyarı süresini ifade eder
+Sonraki alanlar sadece reservedir, şimdilik bir amacı yoktur.
+
+Diğer kullancıların parolası yok ki hash bilgileri olsun!
+
+root kullanıcısının parola özelliği de-aktif edilmiştir ve bu yüzden hashed-pasword yerine sadece '!' vardır.
+
+
+
+
+
+
+
+
+
+
+
+
+

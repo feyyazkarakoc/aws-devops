@@ -1,0 +1,43 @@
+Sıkıştırma Parametresi ve Çözümleme Parametreleri
+
+-----------------------------A_Sıkıştırma Parametresi----------------------
+#Sıkıştırma için öncelikle hem arşivleme işlemine ihityacımız vardır
+# bu nedenle tar komutu ile işlem yapılır
+
+#Kullanımı aşağıdaki gibidir
+1-------------------Dosya arşivleme sıkıştırma
+	tar -zcvf arsiv1.tar arşivlenecek_dosya_veya_dosya_adları_boşluk bırakarak
+
+	z-> Sıkıştırma
+	c-> Archive 'in c sidir
+	v-> işlem sonrası verify/doğrulama yani listeleme yapar
+	f-> işlem yapılacak filename/dosya adı
+
+#Dikkat: Arşivleme sonrası dosyalar silinmez!
+
+
+
+2-------------------Dizin arşivleme sıkıştırma
+
+#Dizin altındaki tüm dosyaları alır arşivler ve sıkıştırır
+
+	tar -zcvf arsiv2.tar dizin_adı/
+
+Gereksiz dosyaları ve klasörleri boş veya dolu demeden silmek için 
+
+-> rm -r dizin_adı/
+
+-> rm -r dosya_adı1 dosya_adı2 ..
+
+
+
+
+-----------------------------B_Çözümleme Parametresi----------------------
+
+	tar -zxvf arsiv1.tar /dizin_adi (hem dosya hemde dizini çözümler)
+	burada x çözümle demektir
+
+
+
+
+
