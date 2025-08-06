@@ -304,3 +304,365 @@ UNIX hâlâ yaşıyor ama yeni sistemlerde çok nadir kullanılıyor.
 Yerini büyük ölçüde Linux (özgür ve esnek olduğu için) aldı.
 
 DevOps, bulut bilişim, modern web sunucuları, konteyner sistemleri (Docker, Kubernetes) artık Linux tabanlı çalışıyor.
+
+# İşletim Sistemi (OS) Nedir?
+İşletim sistemi, bilgisayarın:
+
+Donanımı (CPU, RAM, disk vs.) ile
+
+Yazılımları (programlar, uygulamalar)
+
+arasındaki köprüdür.
+
+Operating System → İşletim Sistemi
+
+OS Ne İşe Yarar?
+Görev	Açıklama
+Donanımı yönetir	Bellek, işlemci, disk gibi kaynakları kontrol eder
+Programları çalıştırır	Uygulamalar arasında adil kaynak dağıtımı yapar
+Dosya sistemini yönetir	Dosyaların okunması/yazılması, dizin yapıları
+Kullanıcı arayüzü sağlar	Terminal, masaüstü ortamı, pencere sistemi
+Güvenlik ve izinler	Kim, neyi, ne kadar kullanabilir kontrol eder
+
+Örnek İşletim Sistemleri:
+Tür	Örnek
+Masaüstü	Windows, macOS, Linux
+Mobil	Android (Linux tabanlı), iOS (Darwin tabanlı)
+Sunucu	Ubuntu Server, Red Hat, CentOS
+Gömülü sistem	RTOS, VxWorks, Raspberry Pi OS
+
+Kısaca:
+OS = Operating System = İşletim Sistemi
+Bilgisayarın beynidir, her şeyi o yönetir.
+
+İşletim sistemi (OS) dünyadaki kullanım paylarına genel hatlarıyla bakacak olursak:
+
+1. Dünyada İşletim Sistemi Kullanım Dağılımı (2025)
+Toplam Cihazlar (Masaüstü, Mobil, Tablet)
+Android (Linux tabanlı): ~46%
+
+Windows: ~25%
+
+iOS + iPadOS (Apple mobil): ~18%
+
+macOS (masaüstü Apple): ~6%
+
+Diğerleri (Linux masaüstü, Unix benzeri vb.): ~5% 
+
+
+Mobil Cihazlarda (Akıllı Telefon & Konsol)
+Android: ~72%
+
+iOS: ~28%
+
+Diğerleri: çok düşük (KaiOS, Samsung OS vb.) 
+
+Masaüstü ve Dizüstü Bilgisayarlarda
+Windows: ~70–72%
+
+macOS (Apple): ~9–13%
+
+Linux (masaüstü): ~4%
+
+Chrome OS: ~1–2%
+
+Diğer / Bilinmeyen: ~6–9% 
+
+
+2. Sunucu & Süper Bilgisayarlar
+Süper bilgisayarlarda: %100 Linux tabanlı dağıtımlar kullanılıyor 
+
+Server (sunucu) pazarı:
+
+Linux: ~62–65%
+
+Windows Server: ~20–25%
+
+Unix sistemleri (AIX, Solaris, HP‑UX): ~5–7%
+
+BSD, özel ana bilgisayar sistemleri vb.: ~5% kadar 
+
+Özet Tablo
+Segment	OS Türü	Pazar Payı
+Genel cihazlar (mobil+masaüstü+tablet)	Android	~46%
+Windows	~25%
+iOS/iPadOS	~18%
+macOS	~6%
+Diğer (Linux masaüstü, Unix vb.)	~5%
+
+Mobil	Android	~72%
+iOS	~28%
+
+Masaüstü/Dizüstü	
+Windows	~70–72%
+macOS	~9–13%
+Linux	~4%
+
+Sunucular / Süper Bilgisayarlar	
+Linux	~62–65% / %100 süper bilgisayar
+Windows Server	~20–25%
+Unix / BSD	~5–7%
+
+3. Ana Eğilimler ve Yorum
+Android, mobil dünyada bir numara; hem ucuz hem de çok sayıda cihazda yer alıyor.
+
+Windows, masaüstü dünyasına hâkim olmaya devam ediyor.
+
+Linux, masaüstü pazarında küçük bir paya sahip olsa da sunucu, süper bilgisayar ve bulut altyapılarında lider konumda.
+
+Unix tabanlı ticari işletim sistemleri (AIX, HP‑UX, Solaris vb.), genelde eski kurumsal sistemlerde kalmış durumda, payları %5–7 seviyesinde.
+
+macOS, prestijli kullanıcı tabanında (özellikle yaratıcı sektörler) güçlü ama masaüstünde Windows’ın oldukça gerisinde.
+
+Kapanış Notu
+Mobilde Android, masaüstünde Windows, sunucuda ve bilimsel sistemlerde Linux öne çıkıyor.
+
+Unix türevleri (AIX, Solaris, BSD) daha sınırlı kurumsal ya da endüstriyel alanlarda kalmış durumda.
+
+Gelecekte Linux’un sunucu ve masaüstü alanında daha da güçlenmesi bekleniyor; Windows 11 geçişleri ve Android’in yaygınlığı ise mobilde sürecek.
+
+# Components of linux 
+
+1. USER (Kullanıcı)
+Sistemi kullanan kişidir.
+
+Uygulamalarla (Applications) etkileşime girer.
+
+Komut verir, programları çalıştırır.
+
+2. Applications (Uygulamalar)
+Kullanıcının doğrudan kullandığı programlardır. Örnek:
+
+Web tarayıcı
+
+LibreOffice, GIMP
+
+Kod editörleri, oyunlar vs.
+
+Uygulamalar, kullanıcının ihtiyaç duyduğu işleri yapar.
+
+Bu uygulamalar, çalışmak için Shell ve Kernel ile dolaylı olarak iletişim kurar.
+
+3. Utilities (Araçlar / Yardımcı Programlar)
+Sistemin yönetimi için kullanılan temel komutlar ve araçlardır.
+
+Örnek: ls, cp, mkdir, top, ps, df, grep vs.
+
+Bunlar, Shell üzerinden çalıştırılır.
+
+Kullanıcı, bu araçlarla sistemi yönetebilir.
+
+4. Shell
+Komut yorumlayıcısıdır.
+
+Kullanıcının yazdığı komutları alır ve kernel’a iletir.
+
+Örnek Shell türleri:
+
+bash, zsh, sh, fish
+
+Shell, kullanıcı ile kernel arasında bir köprü gibidir.
+
+5. Kernel (Çekirdek)
+Linux’un beyni ve en kritik kısmıdır.
+
+Donanımı doğrudan kontrol eder.
+
+Görevleri:
+
+Bellek yönetimi (RAM)
+
+Dosya sistemi yönetimi
+
+Süreç (process) yönetimi
+
+G/Ç (girdi/çıktı) yönetimi
+
+Donanım sürücülerini çalıştırmak
+
+Uygulamalardan gelen istekleri alır, donanıma iletir, sonucu geri yollar.
+
+6. Hardware (Donanım)
+Fiziksel parçalar: CPU, RAM, disk, klavye, ekran, ağ kartı vs.
+
+Kernel, donanım üzerinde tam yetkiye sahiptir ve her şey buraya kadar iner.
+
+Özet Akış:
+USER
+ ↓
+Applications / Utilities
+ ↓
+Shell
+ ↓
+Kernel
+ ↓
+Hardware
+Bu Yapının Önemi:
+Linux sistemlerde bu yapı sayesinde güvenlik, stabilite ve esneklik sağlanır.
+
+Kullanıcı, donanıma doğrudan değil, kontrollü katmanlar üzerinden ulaşır.
+
+Her katmanın ayrı görevi vardır ve görev dağılımı net ayrılmıştır.
+
+# Distro Nedir? (Linux Dağıtımı)
+Distro, Linux çekirdeğini alıp onun çevresine:
+
+Masaüstü ortamı (örnek: GNOME, KDE),
+
+Paket yöneticisi (örnek: APT, YUM),
+
+Sistem araçları (örnek: kurulum aracı, yazılım merkezi),
+
+Varsayılan uygulamalar (örnek: tarayıcı, metin editörü)
+
+gibi bileşenleri ekleyerek oluşturulan kullanıma hazır Linux işletim sistemidir.
+
+Her dağıtımın amacı, hedef kitlesi ve özellikleri farklıdır:
+
+Kimisi yeni başlayanlar için kolaydır.
+
+Kimisi sistem yöneticileri veya sunucular içindir.
+
+Kimisi özelleştirme meraklıları için yapılandırılabilir yapıdadır.
+
+Popüler Linux Dağıtımları (Kısaca Açıklamalar)
+Hangi Dağıtım Ne İçin Uygun?
+Kullanım Amacı	Önerilen Distro
+Yeni başlayan	Ubuntu, Mint
+Geliştirici	Fedora, Manjaro
+Sunucu	Debian, RHEL, Alma
+Kurumsal/Şirket içi	RHEL, openSUSE
+Hafif sistemler	Mint, Manjaro XFCE
+
+# Open source (Açık kaynak), bir yazılımın kaynak kodunun herkese açık ve erişilebilir olduğu bir yazılım geliştirme yaklaşımıdır. 
+Bu, isteyen herkesin:
+
+Yazılımın kodunu görüntüleyebileceği,
+
+Kodu indirip çalıştırabileceği,
+
+Hataları düzeltebileceği veya özellik ekleyebileceği,
+
+Kendi ihtiyaçlarına göre özelleştirebileceği anlamına gelir.
+
+Örnek Açık Kaynak Yazılımlar
+Yazılım	Açıklama
+Linux	Açık kaynak işletim sistemi çekirdeği
+Firefox	Açık kaynak web tarayıcı
+LibreOffice	Microsoft Office alternatifi
+VS Code	Microsoft destekli açık kaynak editör
+Apache	Web sunucusu yazılımı
+
+Open sources Server Applications Örnekleri
+Uygulama	Açıklama
+Apache HTTP Server	En popüler açık kaynak web sunucularından biri
+Nginx	Hafif, hızlı ve ters proxy olarak da kullanılır
+MySQL	Açık kaynak ilişkisel veritabanı sistemi
+Samba	Windows sistemlerle dosya/paylaşım uyumluluğu sağlar
+Redis	Bellek içi (in-memory) veritabanı ve önbellek
+
+# FSF (Free Software Foundation) ve OSI (Open Source Initiative), özgür yazılım ve açık kaynak dünyasında çok önemli iki kuruluştur. 
+Ancak amaçları ve yaklaşımları farklıdır:
+
+FSF (Free Software Foundation) – Özgür Yazılım Vakfı
+Kuruluş: 1985 yılında Richard Stallman tarafından kuruldu.
+
+Amaç: Yazılımın kullanıcı özgürlüklerine odaklanmasını savunur.
+
+Özgürlük tanımı: Bir yazılımın özgür olması için şu dört özgürlüğü sağlaması gerekir:
+
+Programı herhangi bir amaçla çalıştırma özgürlüğü.
+
+Programın nasıl çalıştığını inceleyip, onu değiştirme özgürlüğü.
+
+Kopyalarını dağıtma özgürlüğü.
+
+Geliştirilmiş hâllerini dağıtma özgürlüğü.
+
+Anahtar kelime: freedom (özgürlük)
+Kullandıkları lisanslar: GNU GPL (en yaygını), LGPL, AGPL vb.
+FSF yazılımların ahlaki bir sorumlulukla paylaşılmasını savunur.
+
+OSI (Open Source Initiative) – Açık Kaynak Girişimi
+Kuruluş: 1998 yılında Bruce Perens ve Eric Raymond tarafından kuruldu.
+
+Amaç: Açık kaynak yazılım modelini ticari dünyaya ve kurumlara tanıtmak.
+
+Açık kaynak tanımı: Kaynak kodunun erişilebilir olması ve belirli kriterleri sağlaması.
+
+10 kriteri olan Open Source Definition belgesini yayınlamıştır.
+
+Anahtar kelime: pragmatizm (pratiklik)
+OSI, etik veya özgürlükten çok kalite, işbirliği ve şeffaflık gibi avantajlara odaklanır.
+
+FSF ve OSI Farkı
+Özellik	FSF (Free Software)	OSI (Open Source)
+Odağı	Kullanıcı özgürlüğü	Yazılım geliştirme modeli
+Terminoloji	"Free Software" (özgür yazılım)	"Open Source" (açık kaynak)
+Yaklaşım	Ahlaki ve felsefi	Pratik ve ticari
+Lisans Örnekleri	GNU GPL, AGPL	MIT, Apache, BSD, GPL
+
+# Package management tools (paket yönetim araçları),
+Bir işletim sisteminde yazılım paketlerini (programları, kütüphaneleri vs.):
+
+kurmak (install)
+
+güncellemek (update)
+
+kaldırmak (remove)
+
+bağımlılıkları yönetmek (başka bir paketin çalışması için gereken diğer paketleri bulup kurmak)
+
+gibi işlemleri kolayca yapmanı sağlayan yazılımlardır.
+
+Bazı Popüler Paket Yönetim Araçları:
+Araç İsmi	Kullanıldığı Sistem	Açıklama
+apt	Debian, Ubuntu gibi	.deb paketleri yönetir
+yum	Eski CentOS, RHEL	.rpm paketleri yönetir
+dnf	Yeni Fedora, RHEL	yum’un gelişmiş halidir
+pacman	Arch Linux	Basit ve hızlıdır
+zypper	openSUSE	.rpm tabanlıdır
+snap	Ubuntu (Snapcraft)	Paket + bağımlılıkları bir arada sunar
+flatpak	Tüm Linux dağıtımları	Uygulamayı izole çalıştırır
+
+Her dağıtımın bir paket deposu (repository) vardır. Yani, paketler internet üzerinden indirilecek birer raf gibi düşünülür.
+
+Bazı paketler grafik arayüzle de yönetilebilir (örnek: Ubuntu Software Center, Synaptic vs.)
+
+# Shell Nedir?
+Shell, kullanıcı ile işletim sistemi arasında bir arayüz görevi gören bir programdır. Komutları alır, işletim sistemine iletir ve sonucu kullanıcıya gösterir.
+
+Shell’ler ikiye ayrılır:
+
+CLI (Command Line Interface) → Metin tabanlı (örneğin: Bash, Zsh)
+
+GUI (Graphical User Interface) → Grafik arayüz (örneğin: Windows Explorer)
+
+Bash Nedir?
+Bash (Bourne Again SHell), en yaygın kullanılan Linux shell’idir.
+sh (Bourne Shell) kabuğunun gelişmiş bir versiyonudur.
+
+Bash’in özellikleri:
+
+Komut geçmişi tutar
+
+Otomatik tamamlama yapar (TAB tuşu)
+
+Değişken tanımlama destekler
+
+Script (betik) yazmaya uygundur
+
+Örnek:
+echo "Merhaba dünya"
+Bu komut Bash üzerinden çalıştırıldığında ekrana "Merhaba dünya" yazar.
+
+Kıyaslama:
+Özellik	Shell	Bash
+Tanım	Genel isim	Spesifik bir shell türü
+Görev	Komutları işletim sistemine iletmek	Popüler, gelişmiş bir shell olarak bunu yapar
+Örnekler	Bash, Zsh, Fish, Csh	Bash
+
+Özet:
+Shell: Komutların çalıştığı arayüzdür.
+
+Bash: En yaygın kullanılan shell türüdür, özellikle Linux’ta.
