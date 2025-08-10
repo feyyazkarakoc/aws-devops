@@ -666,3 +666,68 @@ Görev	Komutları işletim sistemine iletmek	Popüler, gelişmiş bir shell olar
 Shell: Komutların çalıştığı arayüzdür.
 
 Bash: En yaygın kullanılan shell türüdür, özellikle Linux’ta.
+
+Shell tam olarak ne yapar?
+Yazdığınız komutu alır (örneğin: ls -l),
+
+Komutu parçalar ve yorumlar,
+
+İlgili programın (örneğin ls komutu) binary dosyasını (çalıştırılabilir dosya) bulur,
+
+Onu çalıştırır,
+
+Sonuçları ekrana yansıtır.
+
+
+# Binary dosyası nedir?
+Linux (ve Unix benzeri) işletim sistemlerinde binary dosyaları, makine tarafından çalıştırılabilir program dosyalarıdır. 
+Genellikle /bin, /usr/bin, /sbin, /usr/sbin gibi dizinlerde bulunur.
+
+Shell → Binary nasıl işler?
+Sen bir terminale örneğin:
+ls -l
+yazdığında, bu işlem şu şekilde gerçekleşir:
+
+Shell (örneğin bash), senin yazdığın komutu alır (ls -l).
+
+Shell, PATH ortam değişkenine bakarak ls komutunun çalıştırılabilir (binary) dosyasını arar.
+
+Genellikle /bin/ls dizininde bulunur.
+
+Binary dosyası (/bin/ls) çalıştırılır, sistem çağrıları (system calls) kullanılarak dosya listesi elde edilir.
+
+Sonuç terminalde gösterilir.
+
+Binary dosyası nasıl görünür?
+Eğer bir binary dosyasını bir metin editörüyle açarsan okunamaz, çünkü:
+
+İnsan için değil, CPU için yazılmıştır.
+
+ASCII karakterler değil, makine dili (ikili – binary) kodlaması içerir.
+
+Örneğin:
+cat /bin/ls
+ya da
+hexdump -C /bin/ls | head
+Bu gibi komutlarla içeriği görebilirsin ama anlamlı olmaz. Çıktı şu tarz olur:
+
+7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00  | .ELF............
+Burada .ELF başlığı dikkat çeker. Bu, Linux sistemlerinde yaygın olan ELF (Executable and Linkable Format) formatıdır. Yani bu dosya çalıştırılabilir bir dosyadır.
+
+Özet:
+Shell, yazdığın komutu alır.
+
+İlgili binary dosyasını bulur ve çalıştırır.
+
+Binary dosyası işletim sistemi ve donanım tarafından yürütülür.
+
+# Komut satırında which ls komutunu kullanarak ls komutunun hangi dosya tarafından çalıştırıldığını bulmuş oldun:
+
+/usr/bin/ls
+Bu şu anlama gelir:
+
+Sen ls yazınca, shell (örneğin bash) bu komutun binary dosyasını /usr/bin/ls yolunda buluyor.
+
+Bu dosya bir binary (çalıştırılabilir) dosyadır ve içinde makine diliyle yazılmış komutlar vardır.
+
+Shell, bu binary dosyayı çalıştırarak terminale klasör içeriğini listeliyor.
