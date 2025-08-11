@@ -731,3 +731,157 @@ Sen ls yazınca, shell (örneğin bash) bu komutun binary dosyasını /usr/bin/l
 Bu dosya bir binary (çalıştırılabilir) dosyadır ve içinde makine diliyle yazılmış komutlar vardır.
 
 Shell, bu binary dosyayı çalıştırarak terminale klasör içeriğini listeliyor.
+
+# Git Bash Nedir?
+Git Bash, Windows üzerinde Bash benzeri bir terminal sağlayan ve içinde Git komutlarını da barındıran bir uygulamadır.
+Adı iki şeyin birleşiminden gelir:
+
+Git → Sürüm kontrol sistemi (kaynak kod yönetimi aracı)
+
+Bash → Linux/Unix komut satırı kabuğu (shell)
+
+Neden var?
+Windows’ta varsayılan olarak Bash bulunmaz, sadece cmd.exe ve PowerShell vardır.
+Ama Git dünyasında pek çok komut ve örnek Linux terminali üzerinden verildiği için Windows kullanıcılarının da aynı ortamı kullanabilmesi amacıyla Git Bash geliştirildi.
+
+Git Bash Ne Sağlar?
+Linux/Unix tarzı komutları (ls, pwd, cat, grep, chmod vb.) Windows’ta çalıştırma imkanı.
+
+Git komutlarını (git clone, git commit, git push vb.) çalıştırma imkanı.
+
+Windows dosya sistemi ile Linux komutlarını bir arada kullanma.
+
+MINGW64 (Minimal GNU for Windows) altyapısı sayesinde Bash ortamı simülasyonu.
+
+Örnek
+Git Bash üzerinde:
+pwd
+/c/Users/feyyaz
+Windows’ta aynı konum:
+C:\Users\feyyaz
+Yani Git Bash, Linux yol formatı ile gösterir ama aslında Windows dosyalarına erişiyorsundur.
+
+Özet Tablo
+Özellik	Bash (Linux)	Git Bash (Windows)
+Çalıştığı ortam	Linux / Unix	Windows
+Sağladıkları	Tam Linux kabuğu	Linux komutlarının emülasyonu + Git
+Kullanım amacı	Genel amaçlı shell	Windows’ta Git ve Linux komutları
+
+# Emülasyon Nedir?
+Emülasyon (emulation) → Bir sistemin, başka bir sistemin işlevlerini taklit etmesidir.
+
+Bilgisayar dünyasında bu şu demek:
+
+Orijinal ortam: Linux komut satırı
+
+Taklit eden ortam: Git Bash (Windows üzerinde çalışıyor ama sana Linux komutlarını çalışıyormuşsun gibi hissettiriyor)
+
+Örnek:
+Windows üzerinde Git Bash kullanınca ls yazıyorsun → Git Bash bu komutu alıyor, Windows API’sini kullanarak çalıştırıyor, ama çıktı Linux’taki gibi görünüyor.
+
+VS Code’daki Bash Terminali
+VS Code’da Terminal → New Terminal dediğinde, açılan terminalin türü ayarlarına bağlıdır.
+
+Eğer Git for Windows yüklüyse ve VS Code’da varsayılan terminal Git Bash olarak ayarlıysa → Orada gördüğün bash Git Bash’tir.
+
+Eğer WSL yüklüyse ve VS Code Remote - WSL eklentisi ile açılmışsa → Orada gördüğün bash WSL’deki gerçek Linux Bash’tir.
+
+Eğer Windows’ta sadece bash.exe ile açtıysan → Bu, yine WSL bash’tir.
+
+Kontrol etmek için VS Code terminaline şunu yazabilirsin:
+echo $0
+bash → Git Bash olabilir ya da WSL bash (farkı anlamak için)
+
+WSL’deysen genelde /bin/bash veya benzeri Linux yolu çıkar.
+
+Git Bash’te genelde /usr/bin/bash ama MINGW64 ibaresi başta görünür.
+
+Şunu dedin:
+Lenovo@DESKTOP-2V0GJ1I MINGW64 /d/AWS DEVOPS (main)
+$ echo $0
+/usr/bin/bash
+
+
+Tamam, çıktın şu:
+/usr/bin/bash
+Bu bize birkaç şey söylüyor:
+
+/usr/bin/bash yolu, Linux tarzı görünüyor ama senin prompt’unda MINGW64 yazdığı için bu WSL değil, Git Bash.
+
+Git Bash, Windows’ta çalışmasına rağmen kendi içinde MinGW64 dosya sistemini taklit ediyor ve Linux benzeri yollar kullanıyor.
+
+/usr/bin/bash burada, Git Bash’in kendi “emüle edilmiş” Bash kabuğunun konumu.
+
+Neden WSL Değil?
+WSL’de olsaydın, prompt genelde /mnt/c/... gibi başlardı (Windows dosyalarına erişirken).
+
+Senin örneğinde /d/AWS DEVOPS var, bu Git Bash’in Windows D: sürücüsünü /d olarak mount etme şekli.
+
+Ayrıca başta MINGW64 yazması Git Bash’in kesin işareti.
+
+Özet:
+Şu anda VS Code veya terminalin Git Bash kullanıyor.
+Linux komutları çalışıyor ama bunlar emülasyon üzerinden çalışıyor, yani gerçek Linux çekirdeği değil, Windows üzerinde Linux benzeri bir ortam.
+
+# feyyaz@DESKTOP-2V0GJ1I:/mnt/c/Windows/system32$ pwd
+/mnt/c/Windows/system32         mnt ne neden böyle bir içerik verdi. ben  bash.exe yi çalıştırdım
+
+Sen bash.exe'yi çalıştırınca, aslında Windows Subsystem for Linux (WSL) ortamına geçiş yapmış oluyorsun. WSL, Windows üzerinde Linux ortamı çalıştırmanı sağlar. Komut satırında gördüğün pwd komutu da Linux'taki "print working directory" yani "şu anki klasörü yazdır" komutudur.
+
+Komut:
+feyyaz@DESKTOP-2V0GJ1I:/mnt/c/Windows/system32$ pwd
+Açıklaması:
+feyyaz → WSL içindeki kullanıcı adın.
+
+DESKTOP-2V0GJ1I → Bilgisayar (hostname) adın.
+
+/mnt/c/Windows/system32 → Şu anki dizinin.
+
+mnt nedir?
+mnt ➜ mount kelimesinin kısaltmasıdır.
+Unix/Linux dünyasında mount, bir dosya sistemini aktif hâle getirip erişilebilir kılmak anlamına gelir.
+
+Kısaca: mnt, Windows dosya sistemini Linux tarafına bağlamak (mount etmek) için kullanılan yerdir.
+
+/mnt/c/Windows/system32 ne demek?
+Linux'tayken Windows'un C sürücüsüne ulaşmak için /mnt/c yolunu kullanırsın.
+
+Yani:
+
+C:\Windows\system32 (Windows bakış açısıyla)
+
+/mnt/c/Windows/system32 (Linux/WSL bakış açısıyla)
+
+Neden böyle?
+bash.exe → seni WSL içindeki bash shell'ine sokar.
+
+WSL, Linux dosya sistemi gibi çalışır. Windows disklerine erişmek için onları mount eder.
+
+Bu yüzden C diski, Linux tarafında /mnt/c olarak görünür.
+
+Ekstra Bilgi:
+Windows Dosya Yolu	Linux (WSL) Karşılığı
+C:\Users\feyyaz\Desktop	/mnt/c/Users/feyyaz/Desktop
+D:\AWS DEVOPS	/mnt/d/AWS DEVOPS
+
+
+# Büyük şirketler linux u devopsta/cloudda/server'da mı kullanıyor?
+Evet, büyük şirketler (Google, Facebook, Twitter, Amazon vb.) Linux’u özellikle DevOps, bulut ve sunucu altyapılarında kullanıyor.
+
+Bunun sebebi:
+
+Stabilite → Yıllarca kesintisiz çalışabilecek kararlılık.
+
+Açık kaynak → Lisans maliyeti yok, ihtiyaçlarına göre özelleştirilebiliyor.
+
+Performans → Sunucu yüklerini çok verimli yönetiyor.
+
+Güvenlik → Sunucu güvenliğinde güçlü, açıklar hızlı kapatılıyor.
+
+Otomasyon uyumu → DevOps’ta kullanılan Ansible, Docker, Kubernetes gibi araçların çoğu Linux üzerinde doğal olarak çalışıyor.
+
+Bulut uyumu → AWS, Google Cloud, Azure gibi servislerin çoğu Linux tabanlı imajlarla geliyor.
+
+Özet:
+Linux, masaüstünde Windows kadar yaygın olmasa da sunucu, veri merkezi, bulut platformu ve DevOps otomasyonu alanlarında lider konumda.
+Yani ev kullanıcıları Windows kullanırken, arka planda çalışan “büyük internet” çoğunlukla Linux üzerinde dönüyor.
