@@ -135,3 +135,186 @@ Kullanım amacı	Kesin adres vermek	Kısa ve pratik erişim
 Absolute path: /home/user/documents/pictures → her zaman kökten başlar.
 
 Relative path: pictures veya ../downloads → bulunduğun yerden başlar.
+
+# mkdir ./techproeducation/lesson ./techproeducation/materials
+mkdir → make directory (yeni klasör oluşturur).
+
+. (nokta) → geçerli dizini ifade eder.
+
+Senin örneğinde ./techproeducation demek:
+“Şu anda bulunduğum dizinin altında techproeducation klasörüne git.” (Aslında gitmeden oluşturur. cd dememize gerek kalmadan oluşturur.)
+
+./techproeducation/lesson → geçerli dizinin içinde techproeducation klasörünün altında lesson adında bir klasör oluşturur.
+
+./techproeducation/materials → aynı şekilde techproeducation altında materials adında bir klasör oluşturur.
+
+Dikkat:
+
+Eğer techproeducation klasörü önceden yoksa, bu komut hata verir çünkü mkdir varsayılan olarak eksik ara klasörleri otomatik oluşturmaz.
+
+Eksik ara klasörleri de oluşturmasını istersen -p parametresi gerekir:
+mkdir -p ./techproeducation/lesson ./techproeducation/materials
+
+# ping komutu, bir bilgisayar ile başka bir bilgisayar (veya sunucu) arasındaki ağ bağlantısını test etmek için kullanılır.
+Nasıl çalışır?
+ping, hedefe ICMP (Internet Control Message Protocol) Echo Request paketleri gönderir.
+
+Hedef cihaz cevap verirse (Echo Reply), bağlantının çalıştığını ve ne kadar sürede cevap aldığını gösterir.
+
+Bu süreye gecikme süresi (latency) denir.
+
+Temel Kullanım
+ping google.com
+Bu komut, google.com adresine veri paketleri gönderir ve yanıt sürelerini milisaniye cinsinden gösterir.
+
+Örnek çıktı
+PING google.com (142.250.183.78) 56(84) bytes of data.
+64 bytes from lhr25s05-in-f14.1e100.net (142.250.183.78): icmp_seq=1 ttl=117 time=22.4 ms
+64 bytes from lhr25s05-in-f14.1e100.net (142.250.183.78): icmp_seq=2 ttl=117 time=23.1 ms
+icmp_seq → Gönderilen paket numarası
+
+ttl (time-to-live) → Paketin geçerli olacağı maksimum “atlama” sayısı
+
+time → Yanıtın gelme süresi (ms)
+
+Önemli kullanım amaçları
+Ağ çalışıyor mu? — İnternete ya da başka bir cihazın IP’sine ulaşabiliyor musun?
+
+Gecikme süresi ölçümü — Özellikle oyunlarda ve VoIP uygulamalarda önemli.
+
+Paket kaybı testi — Eğer bazı paketler geri dönmezse bağlantı sorunları olabilir.
+
+Not:
+Bazı sunucular güvenlik amacıyla ICMP’yi kapatır, böylece ping yanıt vermez. Bu, mutlaka sunucunun kapalı olduğu anlamına gelmez.
+
+# ssh komutu, uzak bir bilgisayara veya sunucuya güvenli bir şekilde bağlanmak için kullanılan bir komuttur.
+Açılımı: Secure Shell (Güvenli Kabuk).
+
+Ne işe yarar?
+Bir uzak makinenin terminaline bağlanmanı sağlar.
+
+Tüm veri transferi şifrelenir → Kullanıcı adı, parola, gönderilen komutlar güvenli olur.
+
+DevOps, cloud, Linux sistem yönetimi, yazılım geliştirme gibi alanlarda sıkça kullanılır.
+
+Temel kullanım şekli
+ssh kullanıcı_adı@sunucu_ip_adresi
+Örneğin:
+
+ssh ec2-user@34.228.165.66
+Bu komut, IP’si 34.228.165.66 olan sunucuya ec2-user kullanıcısıyla bağlanır.
+
+Özel anahtar ile bağlanma
+Bulut sistemlerde (AWS EC2, Google Cloud vb.) genellikle private key (.pem) dosyası kullanılır:
+
+ssh -i ~/.ssh/mykey.pem ec2-user@34.228.165.66
+-i → Kullanılacak özel anahtar dosyasını belirtir.
+
+Örnek senaryo
+AWS EC2 üzerinde bir Linux sunucu açtın.
+
+Sana bir IP adresi ve .pem anahtar dosyası verildi.
+
+Kendi bilgisayarından bu komutla bağlanırsın:
+
+ssh -i ~/.ssh/mykey.pem ec2-user@EC2_IP_ADDRESS
+Bağlandıktan sonra sanki o bilgisayarın başındaymış gibi komut yazabilirsin.
+
+SSH, ping gibi sadece test etmez, direkt olarak kontrol imkanı sağlar.
+Ping → Bağlantı var mı?
+SSH → Bağlandım, artık komut çalıştırabilirim.
+
+# wget komutu, internet üzerinden (HTTP, HTTPS, FTP) dosya indirmek için kullanılan bir komuttur.
+Adı World Wide Web + Get kelimelerinden gelir.
+
+Ne işe yarar?
+İnternetteki bir dosyayı terminalden indirmeni sağlar.
+
+Arka planda çalışabilir, bağlantı koptuğunda devam edebilir.
+
+Otomasyon, script, sunucu kurulumu gibi işlerde çok kullanılır.
+
+Basit kullanım
+wget URL
+Örneğin:
+wget https://example.com/dosya.zip
+Bu komut, dosya.zip dosyasını bulunduğun dizine indirir.
+
+Önemli parametreler
+Parametre	Açıklama
+-O dosya_adi	İndirilen dosyayı farklı bir adla kaydeder.
+-c	Yarım kalmış indirmeyi devam ettirir.
+-b	Arka planda indirir (background).
+--limit-rate=200k	İndirme hızını sınırlar.
+-r	Web sitesini recursive (tüm alt bağlantılarla) indirir.
+
+Örnekler
+1. Farklı adla kaydetme
+wget -O kurs.pdf https://example.com/egitim.pdf
+egitim.pdf olarak gelen dosyayı kurs.pdf adıyla kaydeder.
+
+2. Yarım kalan indirmeye devam etme
+wget -c https://example.com/dosya.zip
+
+3. Arka planda indirme
+wget -b https://example.com/video.mp4
+wget, DevOps’ta sunucuya internetten paket veya script çekmek için çok kullanılır.
+Mesela EC2’da bir kurulum script’ini doğrudan indirip çalıştırabilirsin:
+
+wget https://example.com/install.sh && bash install.sh
+
+# curl komutu, internet üzerinden veri indirmek veya göndermek için kullanılan, çok yönlü bir komuttur.
+Adı Client URL kelimelerinden gelir.
+
+wget daha çok “dosya indirme” odaklıyken, curl hem indirme hem de API istekleri gibi veri gönderme/çekme işlemlerinde kullanılır.
+
+Ne işe yarar?
+HTTP, HTTPS, FTP, SFTP, SCP gibi birçok protokolü destekler.
+
+Web sitelerinden dosya indirir.
+
+API’lere GET, POST, PUT, DELETE istekleri gönderebilir.
+
+Header bilgilerini inceleyebilir.
+
+Form verisi gönderebilir.
+
+Basit kullanım
+curl URL
+Örneğin:
+curl https://example.com
+Web sayfasının HTML içeriğini ekrana basar.
+
+Önemli parametreler
+Parametre	Açıklama
+-o dosya	Çıktıyı ekrana değil, dosyaya yazar.
+-O	İndirilen dosyayı orijinal adıyla kaydeder.
+-L	Yönlendirmeleri takip eder.
+-I	Sadece HTTP header bilgilerini alır.
+-d	POST isteği ile veri gönderir.
+-X	HTTP metodu belirtir (GET, POST, PUT, DELETE).
+
+Örnekler
+1. Dosya indirme
+
+curl -O https://example.com/dosya.zip
+
+2. Yönlendirmeleri takip ederek indirme
+
+curl -L -O https://example.com/dosya.zip
+
+3. HTTP header bilgilerini görüntüleme
+
+curl -I https://example.com
+
+4. Bir API’ye POST isteği atma
+
+curl -X POST -d "kullanici=ali&parola=1234" https://example.com/login
+
+5. JSON veri gönderme
+
+curl -X POST -H "Content-Type: application/json" \
+-d '{"ad":"Ali","yas":25}' https://api.example.com/kullanicilar
+
+curl, özellikle DevOps ve Cloud ortamlarında, API testi, web servisleri ile konuşma ve otomasyon scriptleri için vazgeçilmezdir.
+wget sadece dosya indirirken iş görürken, curl veri alışverişinin “İsviçre çakısı” gibidir. 
