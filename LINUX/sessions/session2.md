@@ -318,3 +318,92 @@ curl -X POST -H "Content-Type: application/json" \
 
 curl, özellikle DevOps ve Cloud ortamlarında, API testi, web servisleri ile konuşma ve otomasyon scriptleri için vazgeçilmezdir.
 wget sadece dosya indirirken iş görürken, curl veri alışverişinin “İsviçre çakısı” gibidir. 
+
+# unzip komutu
+
+Ne yapar?
+.zip uzantılı dosyaları açar (içeriğini çıkarır).
+
+Temel kullanım
+
+unzip dosya.zip
+
+
+Bu komut dosya.zip içindeki dosyaları bulunduğun klasöre açar.
+
+Örnekler
+
+unzip dosya.zip -d hedef_klasor
+
+
+→ .zip dosyasını hedef_klasor içine çıkarır.
+
+unzip -l dosya.zip
+
+
+→ Sadece içeriği listeler, açmaz.
+
+Not:
+unzip komutu Linux’ta her zaman yüklü gelmeyebilir.
+Ubuntu/Debian’da yüklemek için:
+
+sudo apt install unzip
+
+# tar komutu
+
+Ne yapar?
+tar aslında bir arşivleme komutudur (ZIP gibi ama daha çok Linux’ta kullanılır).
+Tek başına sıkıştırmaz, ama genellikle gzip (.tar.gz) veya bzip2 (.tar.bz2) ile birlikte çalışır.
+
+Temel parametreler:
+
+c → create (oluştur)
+
+x → extract (çıkart)
+
+v → verbose (açık açık listele)
+
+f → file (dosya adı belirt)
+
+z → gzip ile sıkıştır / aç
+
+j → bzip2 ile sıkıştır / aç
+
+Örnekler
+
+Arşiv oluşturma
+
+tar -cvf arsiv.tar klasor/
+
+
+→ klasor/ içeriğini arsiv.tar dosyasına toplar (sıkıştırmaz).
+
+Gzip ile sıkıştırma
+
+tar -czvf arsiv.tar.gz klasor/
+
+
+→ klasor/ içeriğini gzip ile sıkıştırılmış .tar.gz dosyası yapar.
+
+Arşivi açma
+
+tar -xvf arsiv.tar
+
+
+→ .tar dosyasını çıkarır.
+
+Gzip’li arşivi açma
+
+tar -xzvf arsiv.tar.gz
+
+
+→ .tar.gz dosyasını çıkarır.
+
+Not:
+.tar.gz dosyası hem arşiv hem sıkıştırma içerir; .tar ise sadece arşivdir.
+
+Kısaca fark:
+
+unzip → sadece .zip dosyaları açar.
+
+tar → .tar, .tar.gz, .tar.bz2 gibi Linux’ta sık kullanılan arşivleri yönetir.
