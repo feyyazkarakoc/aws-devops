@@ -407,3 +407,42 @@ Kısaca fark:
 unzip → sadece .zip dosyaları açar.
 
 tar → .tar, .tar.gz, .tar.bz2 gibi Linux’ta sık kullanılan arşivleri yönetir.
+
+# echo sadece yazdırır mı, yoksa dosya yoksa dosya da oluştururu mu?
+echo temelde ekrana (stdout’a) yazı yazar. Ama dosya yönlendirme operatörleri (>, >>) ile kullanıldığında dosya da oluşturabilir veya içine yazar.
+
+1. Sadece ekrana yazdırma
+echo "Merhaba"
+
+
+Konsolda "Merhaba" çıkar.
+
+2. Dosyaya yazma (>)
+echo "Merhaba" > deneme.txt
+
+
+deneme.txt yoksa oluşturur.
+
+Varsa içeriğini siler ve "Merhaba" yazar.
+
+3. Dosyaya ekleme (>>)
+echo "Yeniden selam" >> deneme.txt
+
+
+Dosya yoksa yine oluşturur.
+
+Varsa, içeriği silmez, sonuna ekler.
+
+4. Boş dosya oluşturma
+echo > bos.txt
+
+
+İçinde sadece bir satır sonu (newline) olur.
+
+Eğer tamamen boş dosya istiyorsan:
+
+> bos.txt
+
+
+Sonuç:
+echo tek başına sadece yazdırır, ama > veya >> ile yönlendirme yaparsan dosya da oluşturur.
