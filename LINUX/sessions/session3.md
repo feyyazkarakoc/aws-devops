@@ -89,6 +89,3 @@ Komutun detaylarına bakalım:
 \e[m: Yazı rengini varsayılan hale döndürür.
 \$: Kullanıcının normal bir kullanıcı mı ( $ ) yoksa root kullanıcı mı ( # ) olduğunu gösterir.
 Bu komut, terminalde kullanıcı adı, makine adı ve mevcut dizini belirli renklerde göstererek daha okunaklı bir görünüm sağlar.
-
-Bu bir test dosyasıdır.
-Nano ile metin düzenlemek kolaydır.
