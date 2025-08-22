@@ -61,3 +61,60 @@ Cihaz dosyaları.
 Özetle:
 FHS = Linux’ta dosya sisteminin rehberi / standart düzeni.
 Hangi dosyanın nerede bulunması gerektiğini söyler.
+
+# File permission nedir, user, group ve other'ı anlatur mısın?
+Linux’ta file permission (dosya izinleri), bir dosya veya dizine kimlerin hangi tür erişim hakkına 
+sahip olduğunu belirleyen güvenlik mekanizmasıdır.
+
+Temel olarak üç tip kullanıcı vardır:
+
+User (Owner / Kullanıcı)
+
+Dosyayı oluşturan kişi (sahibi).
+
+Genelde ls -l çıktısında ilk görünen kullanıcıya aittir.
+
+Örn: feyyaz isimli kullanıcı dosyayı oluşturmuşsa, onun owner hakkı vardır.
+
+Group (Grup)
+
+Dosya sahibinin üyesi olduğu grup.
+
+O gruptaki tüm kullanıcılar, dosya üzerinde grup izinlerine göre erişim sağlar.
+
+Other (Diğerleri / World)
+
+Dosyanın sahibi ve grubu dışında kalan tüm kullanıcılar.
+
+Bu en geniş kullanıcı kitlesidir.
+
+Üç tip izin (permission) vardır:
+
+r (read / okuma) → Dosyanın içeriğini okuma izni.
+
+w (write / yazma) → Dosyayı değiştirme, silme izni.
+
+x (execute / çalıştırma) → Dosyayı çalıştırabilme (program/script ise).
+
+Örnek:
+
+ls -l
+-rwxr-xr--
+
+
+Açıklaması:
+
+- → Bu bir dosya (dizin olsaydı d yazardı).
+
+rwx → User (owner) izinleri: okuma, yazma, çalıştırma.
+
+r-x → Group izinleri: okuma, çalıştırma ama yazma yok.
+
+r-- → Other izinleri: sadece okuma.
+
+Özet tablo:
+
+Kullanıcı Tipi	İzinler
+User (owner)	Dosya sahibinin izinleri
+Group	Dosya sahibinin grubundaki kullanıcıların izinleri
+Other	Geri kalan herkesin izinleri
