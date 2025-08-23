@@ -118,3 +118,73 @@ Kullanıcı Tipi	İzinler
 User (owner)	Dosya sahibinin izinleri
 Group	Dosya sahibinin grubundaki kullanıcıların izinleri
 Other	Geri kalan herkesin izinleri
+
+# Linux’ta paket (package) nedir?
+
+Bir yazılımı Linux sistemine kurarken sadece tek bir dosya değil, birçok dosya gerekir:
+
+Çalıştırılabilir dosyalar (binary)
+
+Kütüphaneler
+
+Yapılandırma (config) dosyaları
+
+Dokümantasyon (README, man page)
+
+Servis dosyaları (systemd unit, init script vs.)
+
+İşte bunların hepsi bir araya getirilip tek bir dosya halinde dağıtılır. Buna paket denir.
+Örneğin:
+
+Ubuntu/Debian’da paketler .deb uzantılıdır.
+
+RedHat/CentOS/Amazon Linux’ta .rpm uzantılıdır.
+
+Package Management (Paket Yönetimi) nedir?
+
+Bir yazılımın yüklenmesi, güncellenmesi, kaldırılması sürecini kolaylaştıran sistemdir.
+Paket yöneticisi (package manager):
+
+Bağımlılıkları (dependencies) çözer → yani bir paketin ihtiyaç duyduğu diğer paketleri otomatik indirir.
+
+Merkezi depolardan (repository) yazılımları çeker.
+
+Versiyon kontrolü yapar.
+
+Örneğin:
+
+Debian/Ubuntu → APT (Advanced Package Tool) → apt install, apt update, apt remove
+
+RHEL/CentOS → YUM veya yeni nesil DNF → yum install, dnf update
+
+SUSE → zypper
+
+Arch Linux → pacman
+
+Basit örnek:
+
+Diyelim ki curl kurmak istiyoruz:
+
+Ubuntu/Debian:
+
+sudo apt update
+sudo apt install curl
+
+
+Amazon Linux / CentOS:
+
+sudo yum install curl
+
+
+Arch Linux:
+
+sudo pacman -S curl
+
+
+Burada aslında curl paketini indirip içindeki binary, config ve diğer dosyaları sistemin doğru klasörlerine yerleştiriyor.
+
+Özet:
+
+Paket: Yazılım + gerekli dosyaların arşivlenmiş hali (.deb, .rpm vs.)
+
+Paket yönetimi: Bunları kolayca indirip kurma, güncelleme, kaldırma işi.
