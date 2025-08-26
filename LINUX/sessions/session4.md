@@ -527,3 +527,48 @@ Her Linux dağıtımı, kendine özgü bir paket formatı ve yönetim aracı kul
 Debian/Ubuntu .deb ve apt ile, CentOS/Fedora .rpm ve yum/dnf ile çalışır.
 FreeBSD ise farklı bir yaklaşımla (Ports ve pkg) iş görür.
 AWS kursunda Amazon Linux ile çalışacaksan, .rpm ve yum/dnf komutlarını öğrenmek iyi bir başlangıç olur.
+
+
+# 1. | ne demek?
+
+| (pipe / boru) bir komutun çıktısını başka bir komutun girdisi yapar.
+
+Yani:
+
+yum list installed | grep ^http
+
+
+burada:
+
+yum list installed → tüm kurulu paketleri listeler.
+
+grep ^http → gelen listede adı http ile başlayanları süzer.
+
+Aynı şey apt tarafında da geçerli:
+
+dpkg -l | grep ^ii | grep ^http
+
+
+dpkg -l → tüm paketleri listeler.
+
+grep ^ii → sadece kurulu olanları (başında ii yazanlar) seçer.
+
+grep ^http → onların içinden http ile başlayanları alır.
+
+2. Neden dpkg kullandık, apt değil?
+
+apt genelde yükleme, kaldırma, güncelleme işlemleri için kullanılır.
+
+Paketleri listeleme işinde ise en doğru ve detaylı aracı dpkg’dir.
+
+Örnek:
+
+apt list --installed komutu da var ama çıktısı daha uzun ve farklı formatta.
+
+dpkg -l ise standart ve kolay filtrelenebilir çıktısı olduğu için daha çok tercih edilir.
+
+Özet:
+
+| → bir komutun çıktısını diğerine gönderir.
+
+dpkg -l → apt tabanlı sistemlerde paketleri listelemek için kullanılır (apt daha çok paket yönetimi için).
