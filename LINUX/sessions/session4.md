@@ -242,77 +242,13 @@ Ama o JAR’ın çalışacağı ortam (Java, DB, web server, sistem kütüphanel
 Yani PMS = Server ortamını hazırlayan sistem
 Senin JAR = Uygulaman
 
-# Linux’ta paket yönetimi çeşitleri, kullanılan dağıtıma (distribution) ve tarihsel olarak geliştirilen yöntemlere göre oluşmuştur.
-Yani her Linux dağıtımı kendi paketleme ekosistemine sahiptir.
-
-1. İkili Paket Yöneticileri (Binary Package Managers)
-
-Kaynak koddan derlemekle uğraştırmaz, hazır derlenmiş paketleri yükler.
-
-Debian tabanlı (Ubuntu, Linux Mint vb.)
-
-dpkg → en temel araçtır (paketi kurar ama bağımlılık çözmez).
-
-APT (Advanced Package Tool) → bağımlılık çözme, güncelleme, repository yönetimi yapar.
-
-Red Hat tabanlı (Fedora, CentOS, RHEL, Rocky Linux vb.)
-
-RPM (RedHat Package Manager) → temel paket aracı.
-
-YUM / DNF → RPM üzerine kurulmuş, bağımlılık çözümü ve repo yönetimi sağlar.
-
-Arch Linux tabanlı (Manjaro vb.)
-
-pacman → Arch’ın kendi güçlü paket yöneticisi.
-
-Bu grupta her dağıtım kendi formatını (.deb, .rpm, vb.) geliştirmiştir.
-Seçim sebebi: dağıtımın felsefesi, hedef kitlesi ve tarihsel gelişim.
-
-2. Kaynak Kod Tabanlı Paket Yöneticileri
-
-Paket, hazır derlenmiş değil, kaynak kod olarak gelir ve kullanıcı sisteminde derlenir.
-
-Gentoo → Portage (FreeBSD’nin ports sisteminden esinlenmiş).
-
-BSD’lerde (FreeBSD, OpenBSD) → ports collection mantığı.
-
-Bu yöntem sistem üzerinde tam optimizasyon sağlar (kendi CPU’ya göre derleme, özel ayarlar).
-Ama kurulum uzun sürer.
-
-3. Evrensel / Dağıtım Bağımsız Paket Sistemleri
-
-Her dağıtımda aynı paketi çalıştırabilmek için geliştirildi.
-
-AppImage → Tek dosya halinde çalışır, kurulum gerekmez.
-
-Snap (Ubuntu/Canonical) → sandbox içinde paket çalıştırma.
-
-Flatpak (Red Hat destekli) → benzer şekilde sandbox tabanlı.
-
-Buradaki amaç: “her dağıtımda çalışacak, bağımlılık derdi olmayan, evrensel paketleme”.
-
-4. Konfigürasyon ve Otomasyon Bazlı Yönetim
-
-Daha üst seviye araçlar, paket yönetimini otomasyonla birleştirir.
-
-Ansible, Puppet, Chef, SaltStack → paketlerin belirli versiyonlarını otomatik kurma ve güncelleme.
-Bunlar sistem yöneticileri için yüzlerce makineyi aynı anda yönetmek amacıyla ortaya çıkmıştır.
-
-Özet:
-
-.deb / .rpm tabanlı → dağıtım felsefesi ve tarihsel ayrışma nedeniyle.
-
-pacman / portage gibi özel sistemler → dağıtımın özgün yaklaşımı nedeniyle.
-
-Snap / Flatpak / AppImage → dağıtımlar arası ortak bir çözüm sunmak için.
-
-Otomasyon sistemleri → çoklu sunucu ve kurumsal yönetim için.
 
 # Distribution (Dağıtım / Distro) nedir?
 
 Linux aslında tek başına tam bir işletim sistemi değildir; sadece çekirdektir (Linux kernel).
 
-Bunun üzerine paket yöneticileri, kütüphaneler, grafik arayüz (GNOME, KDE gibi), sistem araçları, sürücüler ve uygulamalar eklenince kullanılabilir bir işletim sistemi haline gelir.
+Bunun üzerine paket yöneticileri, kütüphaneler, grafik arayüz (GNOME, KDE gibi),
+sistem araçları, sürücüler ve uygulamalar eklenince kullanılabilir bir işletim sistemi haline gelir.
 
 Bu bütünleşmiş sistemlere Linux dağıtımı (distribution, distro) denir.
 
@@ -476,9 +412,6 @@ CentOS ve Fedora: Fedora ailesine aittir.
 Amazon Linux: Bağımsız bir ticari dağıtım.
 FreeBSD: Linux değil, BSD tabanlı bir işletim sistemi (farklı bir aile).
 
-
-
-
 Paket Formatları:
 
 Yazılımlar, dağıtımlarda paketler halinde gelir. Her dağıtım farklı bir paket formatı kullanır:
@@ -487,9 +420,6 @@ Yazılımlar, dağıtımlarda paketler halinde gelir. Her dağıtım farklı bir
 .rpm: CentOS, Fedora ve Amazon Linux için kullanılır.
 Ports, .txz: FreeBSD için kullanılır (farklı bir sistem).
 
-
-
-
 Paket Yönetim Araçları:
 
 Bu araçlar, paketlerin yüklenmesini, güncellenmesini ve yönetilmesini sağlar. Her dağıtım, kendi araç setine sahiptir:
@@ -497,10 +427,6 @@ Bu araçlar, paketlerin yüklenmesini, güncellenmesini ve yönetilmesini sağla
 Debian/Ubuntu: apt, apt-cache, apt-get, dpkg (örneğin, apt install ile bir yazılım yükleyebilirsin).
 CentOS/Fedora/Amazon Linux: yum veya dnf (örneğin, yum install veya dnf install).
 FreeBSD: make, pkg.
-
-
-
-
 
 İlişkiler:
 
@@ -511,7 +437,6 @@ CentOS ve Fedora, Fedora ailesine aittir ve .rpm formatını kullanır. Bu ailed
 Amazon Linux da .rpm kullanır ama bağımsız bir sistemdir.
 FreeBSD, Linux’tan farklı bir kökene sahip olduğundan ayrı bir yol izler (Ports ve pkg).
 
-
 Diyagramdaki Akış:
 
 Üstteki kutular (Ubuntu, Amazon Linux, vb.) ana dağıtımları gösterir.
@@ -519,14 +444,11 @@ Bunlar, orta seviyedeki paket yönetim araçlarına (örneğin, apt-get, zypper,
 Alt seviyede ise paket formatları (.deb, .rpm, vb.) ve ilgili komutlar (örneğin, dpkg, rpm) yer alır.
 Her şey en altta "Linux System" veya FreeBSD ile birleşir, çünkü bunlar temel işletim sistemleridir.
 
-
-
 Özet:
 
 Her Linux dağıtımı, kendine özgü bir paket formatı ve yönetim aracı kullanır.
 Debian/Ubuntu .deb ve apt ile, CentOS/Fedora .rpm ve yum/dnf ile çalışır.
 FreeBSD ise farklı bir yaklaşımla (Ports ve pkg) iş görür.
-AWS kursunda Amazon Linux ile çalışacaksan, .rpm ve yum/dnf komutlarını öğrenmek iyi bir başlangıç olur.
 
 
 # 1. | ne demek?
