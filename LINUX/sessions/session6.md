@@ -87,3 +87,47 @@ Yani sistemin “ayar klasörü”dür.
 7 sütun var → kullanıcı_adı : parola_göstergesi : UID : GID : açıklama : home_dizini : shell.
 
 /etc = tüm sistem ayarlarının bulunduğu dizin.
+
+# usermod komutu Linux’ta bir kullanıcı hesabının özelliklerini değiştirmek için kullanılır. Yapabildiği şeyler parametreye göre değişir:
+
+usermod -c "Açıklama" 👉 sadece description (GECOS field) değişir.
+
+usermod -d /yeni/home/dir 👉 home directory değiştirilir.
+
+usermod -s /bin/bash 👉 login shell değiştirilir.
+
+usermod -l yeniad eskiad 👉 kullanıcı adı değiştirilir.
+
+usermod -g grup 👉 primary group değiştirilir.
+
+usermod -G grup1,grup2 👉 ek gruplar değiştirilir.
+
+usermod -u 2001 👉 UID değiştirilir.
+
+Yani tek başına sadece description değiştirmez, hangi parametreyi verdiğine bağlıdır.
+
+# Sorun şu: linux1 kullanıcısının sudo yetkisi yok ve şifresi tanımlanmamış.
+Ne oldu:
+
+sudo useradd linux1 - Kullanıcı oluşturuldu ama:
+
+Şifre atanmadı
+Sudo yetkisi verilmedi
+
+
+sudo su - linux1 - linux1'e geçiş yaptınız
+sudo su - ec2-user - linux1 olarak sudo kullanmaya çalıştınız ama:
+
+linux1'in sudo yetkisi yok
+linux1'in şifresi yok
+
+
+
+Çözüm:
+ec2-user'a geri dönün:
+exit                    # linux1'den çık
+veya Ctrl+D
+Şifre atayın:
+bashsudo passwd linux1      # ec2-user olarak
+sudo passwd linux2
+sudo passwd linux3
