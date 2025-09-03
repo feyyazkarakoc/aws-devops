@@ -128,6 +128,21 @@ ec2-user'a geri dönün:
 exit                    # linux1'den çık
 veya Ctrl+D
 Şifre atayın:
-bashsudo passwd linux1      # ec2-user olarak
+sudo passwd linux1      # ec2-user olarak
 sudo passwd linux2
 sudo passwd linux3
+
+
+# sudo usermod -G aws ec2-user    
+
+DİKKAT! Bu komut tehlikeli!
+
+sudo usermod -G aws ec2-user
+ec2-user'ın tüm üyelikleri değişir (diğer gruplardan çıkar, sadece aws'de kalır)
+ec2-user'ı adm, wheel, systemd-journal, linux gruplarından çıkarır
+ec2-user'ı sadece aws grubuna üye yapar
+
+Fark:
+
+sudo usermod -a -G aws ec2-user    # GÜVENLI - aws grubunu EKLER
+sudo usermod -G aws ec2-user       # TEHLİKELİ - SADECE aws grubuna üye yapar
