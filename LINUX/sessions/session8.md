@@ -61,3 +61,81 @@ stdin (0) → programın girdiği şey
 stdout (1) → programın doğru çıktıları
 
 stderr (2) → programın hata çıktıları
+
+# Here Document (Heredoc) 
+
+Komut:
+cat << EOF > techproeducation.txt
+Take a career voyage with us.
+EOF
+
+Ne oluyor burada?
+
+cat << EOF
+
+cat → normalde dosya içeriğini ekrana basar.
+
+<< EOF → Here Document başlatır.
+
+Yani “EOF satırını görene kadar, yazdığın her şeyi cat’e standard input (stdin) olarak ver” demek.
+
+EOF burada delimiter (sınırlandırıcı). Sen bunu EOF, END, STOP, hatta MERHABA bile yapabilirsin. Standart olarak hep EOF kullanılır ama şart değil.
+
+Örnek:
+
+cat << SON
+Merhaba Dünya
+Linux güzeldir
+SON
+
+
+Çıktısı:
+
+Merhaba Dünya
+Linux güzeldir
+
+
+> techproeducation.txt
+
+Normalde cat çıktısını terminale (stdout) basardı.
+
+> operatörü ile yönlendirdin → stdout’u techproeducation.txt dosyasına yaz.
+
+Böylece ekrana basılmaz, dosyanın içine yazılır.
+
+İçerik kısmı
+
+Take a career voyage with us.
+
+
+Bu satır(lar) cat’e stdin olarak gönderiliyor.
+
+EOF (kapatıcı delimiter)
+
+Burada heredoc bitiyor.
+
+Shell “buraya kadar yazılanları cat komutuna input olarak ver” diyor.
+
+Sonuç:
+
+Dosyanın içeriği artık şöyle oldu:
+
+cat techproeducation.txt
+
+Take a career voyage with us.
+
+Özet:
+
+<< → heredoc başlatır (stdin’den komuta metin akışı verir).
+
+EOF → sadece bir işaretçidir, ismi değiştirilebilir. “End Of File” anlamında kullanılır, ama sabit olmak zorunda değil.
+
+> → çıktıyı dosyaya yönlendirir (overwrite eder).
+
+Bu yöntem çok satırlı yazıları dosyaya gömmek için pratik bir yoldur.
+
+Ekstra: Eğer dosyaya ekleme yapmak isteseydin >> kullanırdın:
+
+cat << EOF >> techproeducation.txt
+Yeni satır eklendi
+EOF
