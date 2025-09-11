@@ -139,3 +139,13 @@ Ekstra: Eğer dosyaya ekleme yapmak isteseydin >> kullanırdın:
 cat << EOF >> techproeducation.txt
 Yeni satır eklendi
 EOF
+
+# comm komutu sıralanmış dosyalar bekler. Sizin dosyalarınız zaten sıralı görünüyor ama emin olmak için:
+Önce sıralayın:
+sort file1.txt > file1_sorted.txt
+sort file2.txt > file2_sorted.txt
+
+Sonra comm kullanın:
+comm file1_sorted.txt file2_sorted.txt
+Veya tek seferde (pipe ile):
+bashcomm <(sort file1.txt) <(sort file2.txt)

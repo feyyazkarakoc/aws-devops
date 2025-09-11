@@ -562,7 +562,7 @@ Exit Code | Meaning |
 - Days.txt dosyasını görüntüleyin ve düzgün çalışıyorsa count.txt dosyasını görüntüleyin.
 ​
 ```bash
-cat days.txt && cat count.txt
+cat Days.txt && cat count.txt
 ```
 
 - days.text dosyasını görüntüleyin ve düzgün çalışıyorsa count.txt dosyasını görüntüleyin.
