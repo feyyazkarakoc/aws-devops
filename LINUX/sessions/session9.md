@@ -117,5 +117,68 @@ tar -czf $TARGET $SOURCE
 
 echo "Backup tamamlandı: $TARGET"
 
+Özet: Shell script = Linux komutlarını otomatikleştiren küçük programcıklar. Programlama diline çok benziyor ama aslında shell komutlarının yazılıp sırayla çalıştırılması.
 
-👉 Özet: Shell script = Linux komutlarını otomatikleştiren küçük progr
+# Sorun PATH'e dosya ile dizin karıştırmanızda:
+Yanlış kullanım:
+bashexport PATH=$PATH:/home/ec2-user/first.sh
+                                     ^^^^^^^^
+                                     Bu bir DOSYA!
+PATH sadece DİZİNLER içerir, dosyalar değil!
+Doğru kullanım:
+export PATH=$PATH:/home/ec2-user
+Bu bir DİZİN!
+PATH nasıl çalışır:
+PATH'te dizinler listelenir:
+bashecho $PATH
+/usr/bin:/bin:/usr/local/bin:/home/ec2-user
+Komut aradığında:
+
+first.sh komutu çalıştırılır
+System her PATH dizininde arar:
+
+/usr/bin/first.sh var mı?
+/bin/first.sh var mı?
+/usr/local/bin/first.sh var mı?
+/home/ec2-user/first.sh var mı?  BULDU!
+
+
+
+Özet:
+
+PATH = dizinler listesi
+Dosya yolu değil, dizin yolu eklenir
+System o dizinlerde çalıştırılabilir dosyalar arar
+
+YANLIŞ:
+export PATH=$PATH:/home/ec2-user/first.sh  # Dosya yolu
+
+DOĞRU:  
+export PATH=$PATH:/home/ec2-user           # Dizin yolu
+
+# 6. madde açıklaması:
+"num1 ve num2 değişkenlerini kullanıcıdan almak yerine Komut satırı argümanlarından İletilecek şekilde değiştirin"
+Yani:
+Şu anki hali (kullanıcıdan input):
+read -p "Birinci sayıyı giriniz : " num1
+read -p "İkinci sayıyı giriniz : " num2
+İstenen hali (komut satırı argümanı):
+bashnum1=$1    # İlk argüman
+num2=$2    # İkinci argüman
+Kullanım farkı:
+Eski yöntem:
+./math2.sh
+Script çalışır, sizden sayı ister:
+"Birinci sayıyı giriniz : " 15
+"İkinci sayıyı giriniz : " 14
+Yeni yöntem:
+./math2.sh 15 14
+Sayıları komut satırında veriyorsunuz
+Script sormuyor, direkt alıyor
+Argümanlar:
+
+$1 = ilk argüman (15)
+$2 = ikinci argüman (14)
+$0 = script adı (math2.sh)
+
+Özet: read komutlarını kaldırıp num1=$1 ve num2=$2 kullanacaksınız!RetryClaude does not have the ability to run the code it generates yet.
