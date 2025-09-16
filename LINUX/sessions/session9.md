@@ -121,16 +121,16 @@ echo "Backup tamamlandı: $TARGET"
 
 # Sorun PATH'e dosya ile dizin karıştırmanızda:
 Yanlış kullanım:
-bashexport PATH=$PATH:/home/ec2-user/first.sh
-                                     ^^^^^^^^
-                                     Bu bir DOSYA!
+export PATH=$PATH:/home/ec2-user/first.sh
+                                 ^^^^^^^^
+                                Bu bir DOSYA!
 PATH sadece DİZİNLER içerir, dosyalar değil!
 Doğru kullanım:
 export PATH=$PATH:/home/ec2-user
 Bu bir DİZİN!
 PATH nasıl çalışır:
 PATH'te dizinler listelenir:
-bashecho $PATH
+echo $PATH
 /usr/bin:/bin:/usr/local/bin:/home/ec2-user
 Komut aradığında:
 
@@ -163,7 +163,7 @@ Yani:
 read -p "Birinci sayıyı giriniz : " num1
 read -p "İkinci sayıyı giriniz : " num2
 İstenen hali (komut satırı argümanı):
-bashnum1=$1    # İlk argüman
+num1=$1    # İlk argüman
 num2=$2    # İkinci argüman
 Kullanım farkı:
 Eski yöntem:
@@ -181,4 +181,9 @@ $1 = ilk argüman (15)
 $2 = ikinci argüman (14)
 $0 = script adı (math2.sh)
 
-Özet: read komutlarını kaldırıp num1=$1 ve num2=$2 kullanacaksınız!RetryClaude does not have the ability to run the code it generates yet.
+Özet: read komutlarını kaldırıp num1=$1 ve num2=$2 kullanacaksınız!
+
+# Linux’ta betik (script), kabuk (shell) tarafından çalıştırılabilecek komutların bir dosya içinde topluca yazılmış hâlidir.
+
+Yani normalde terminalde tek tek yazacağın komutları, sırayla bir dosyaya koyup çalıştırmana olanak tanır.
+En çok kullanılan betikler bash script’lerdir (.sh uzantılı dosyalar).
