@@ -30,7 +30,7 @@ Bu uygulamalı eğitimin sonunda öğrenciler şunları yapabileceklerdir;
 
 - Unix Shell, farklı koşullar temelinde farklı eylemler gerçekleştirmek için kullanılan koşullu deyimleri destekler.
 
-- Basit bir if deyimi temel olarak, belirli bir test doğruysa, belirtilen bir dizi eylemi gerçekleştirin. Eğer doğru değilse, bu eylemleri gerçekleştirmeyin.
+- Basit bir if deyimi temel olarak, belirli bir test doğruysa, belirtilen bir dizi eylemi gerçekleştirir. Eğer doğru değilse, bu eylemleri gerçekleştirmez.
 
 - Bir klasör oluşturun ve `conditional-statements` olarak adlandırın.
 
@@ -257,14 +257,14 @@ if [ $sayi -gt 0 ]
 then
     echo "Girilen sayı pozitif."
 
-    if [ $((sayi % 2)) -eq 0 ]; 
+    if [ $((sayi % 2)) -eq 0 ]
     then
         echo "Ayrıca, girilen sayı çift."
     else
         echo "Ayrıca, girilen sayı tek."
     fi
 
-elif [ $sayi -lt 0 ]; 
+elif [ $sayi -lt 0 ]
 then
     echo "Girilen sayı negatif."
 else
