@@ -205,3 +205,93 @@ echo "fonksiyon dışı: $x"   # boş döner
 Bash’te bloklar scope oluşturmaz → değişken dışarıda da geçerlidir.
 
 Fonksiyonlar scope oluşturur, ama orada da local kullanmazsan değişken dışarı sızar.
+
+# Bash’te select döngüsü, genelde kullanıcıya seçenek sunmak için kullanılır. Yani bir menü yapısı oluşturmak için çok idealdir.
+
+Temel Yapısı
+select variable in list
+do
+   komutlar
+done
+
+
+list → Kullanıcıya seçenek olarak gösterilecek değerler.
+
+variable → Kullanıcının seçtiği değeri alır.
+
+Kullanıcıdan giriş bekler (bir sayı girer).
+
+Girilen sayı listedeki sıraya karşılık gelir.
+
+Basit Örnek
+#!/bin/bash
+
+echo "Bir meyve seçiniz:"
+
+select fruit in Elma Armut Muz Çilek
+do
+    echo "Seçtiğiniz meyve: $fruit"
+    break
+done
+
+
+Çalıştırdığında şöyle görünür:
+
+1) Elma
+2) Armut
+3) Muz
+4) Çilek
+#? 
+
+
+Kullanıcı 2 yazarsa → Armut seçilir.
+
+fruit değişkenine "Armut" atanır.
+
+break döngüyü kırar (yoksa tekrar tekrar sorar).
+
+select ile Menü Yapma
+#!/bin/bash
+
+PS3="Lütfen bir seçim yapın: "   # Kullanıcıya gösterilecek prompt
+
+select option in "Dosyaları Listele" "Tarihi Göster" "Çıkış"
+do
+    case $option in
+        "Dosyaları Listele")
+            ls
+            ;;
+        "Tarihi Göster")
+            date
+            ;;
+        "Çıkış")
+            break
+            ;;
+        *)
+            echo "Geçersiz seçim!"
+            ;;
+    esac
+done
+
+
+Çalıştırınca:
+
+1) Dosyaları Listele
+2) Tarihi Göster
+3) Çıkış
+Lütfen bir seçim yapın:
+
+
+Kullanıcı 1 yazarsa → ls çalışır.
+
+3 yazarsa → döngü kırılır ve program biter.
+
+Önemli Noktalar
+
+PS3 değişkeni → kullanıcıya gösterilen prompt’u değiştirir.
+
+Eğer geçersiz bir sayı girerse → variable boş olur.
+
+Döngüyü bitirmek için break kullanılır.
+
+select özellikle bash menüleri için tercih edilir, çünkü otomatik numaralandırır.

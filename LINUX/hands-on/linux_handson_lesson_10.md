@@ -128,6 +128,19 @@ for ((i=1; i<=10; i++))
  do
     echo "Sayı: $i"
  done
+
+
+ echo "Files in current folder: "
+for file in *
+do
+echo $file
+done
+
+echo "Files in current folder: "
+for file in $(pwd)/*
+do
+echo $file
+done
 ```
 
 - Komut dosyasını çalıştırılabilir hale getirin ve çalıştırın.
@@ -250,7 +263,7 @@ done
 
 ```bash
 ./infinite-loop.sh
-```
+``````
 
 ## Bölüm 5 - Select döngüleri
 
@@ -298,4 +311,12 @@ done
 ```bash
 chmod +x select-loop.sh
 ./select-loop.sh
+```
+
+```bash
+read -p "Birden fazla ad girin : " -a  isimler
+for isim in ${isimler[@]}
+do
+        echo "Merhaba $isim"
+done
 ```
