@@ -130,7 +130,7 @@ for ((i=1; i<=10; i++))
  done
 
 
- echo "Files in current folder: "
+echo "Files in current folder: "
 for file in *
 do
 echo $file

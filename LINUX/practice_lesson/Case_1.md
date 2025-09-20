@@ -27,6 +27,11 @@ cd project
 mkdir src bin docs tests
 ```
 
+Tek komut çözümü (best practice)
+```bash
+mkdir -p project/{src,bin,docs,tests}
+```
+
 ### Adım 3: `README.md` Dosyasını Oluşturma
 
 ```bash

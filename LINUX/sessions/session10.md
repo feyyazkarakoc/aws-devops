@@ -148,7 +148,7 @@ do
   ((i++))
 done
 
-4. select loop (bonus 😊)
+4. select loop 
 
 Menü yapmak için kullanılır.
 
@@ -156,7 +156,7 @@ Menü yapmak için kullanılır.
 
 select meyve in Elma Muz Portakal
 do
-  echo "Seçtiniz: $meyve"
+  echo "Seçti+niz: $meyve"
   break
 done
 
@@ -241,7 +241,7 @@ done
 2) Armut
 3) Muz
 4) Çilek
-#? 
+
 
 
 Kullanıcı 2 yazarsa → Armut seçilir.
