@@ -55,7 +55,8 @@ ls ./backup
 
 ## Ekstra Örnek: Yedekleme İşlemine Tarih Ekleme
 
-Yedekleme işlemine tarih eklemek isteyebilirsiniz. Bu, yedekleme işlemlerini daha iyi takip etmenize yardımcı olur. Aşağıdaki örnekte, yedeklenen dosyaların yeni bir alt dizine kopyalanması ve bu alt dizinin yedekleme tarihi ile adlandırılması gösterilmektedir:
+Yedekleme işlemine tarih eklemek isteyebilirsiniz. Bu, yedekleme işlemlerini daha iyi takip etmenize yardımcı olur. 
+Aşağıdaki örnekte, yedeklenen dosyaların yeni bir alt dizine kopyalanması ve bu alt dizinin yedekleme tarihi ile adlandırılması gösterilmektedir:
 
 ### `backup_with_date.sh` Scriptini Yazma
 

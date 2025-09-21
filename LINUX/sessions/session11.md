@@ -1,5 +1,5 @@
 
-# öşeli parantezler [ ] - aralık belirtmek için kullanılan joker karakterdir.
+# Köşeli parantezler [ ] - aralık belirtmek için kullanılan joker karakterdir.
 Kullanım örnekleri:
 Harf aralığı:
 ls [a-z]*         # a-z ile başlayan dosyalar
@@ -14,7 +14,7 @@ ls [abc]*         # a, b veya c ile başlayan dosyalar
 ls file[135].txt  # file1.txt, file3.txt, file5.txt
 ls [!0-9]*        # Rakamla başlamayan dosyalar (ünlem = değil)
 Karmaşık örnekler:
-bashls [a-z][0-9]*    # Harf+rakam ile başlayan dosyalar
+ls [a-z][0-9]*    # Harf+rakam ile başlayan dosyalar
 ls *[a-z][A-Z]*   # İçinde küçük+büyük harf olan dosyalar  
 ls [!aeiou]*      # Sesli harfle başlamayan dosyalar
 
@@ -302,11 +302,80 @@ Senin örneğin:
 
 if [[ $FILE == '' ]]
 
-
-Doğru, burada string boş mu diye bakıyorsun.
+Burada string boş mu diye bakıyorsun.
 Ama daha best practice olan yol şu:
 
 if [[ -z $FILE ]]
 
-
 -z → string uzunluğu sıfır mı (boş mu) diye kontrol eder.
+
+# DATE=$(date +%Y%m%d_%H%M%S)      bu kalıbı anlatır mısın.
+Bu kalıp Bash’te zaman damgası üretmek için çok sık kullanılan bir tekniktir.
+1. date komutu
+
+Linux’ta date komutu, sistemin tarih ve saatini verir.
+Varsayılan hali:
+
+$ date
+Sat Sep 21 17:45:23 +03 2025
+
+2. +%Y%m%d_%H%M%S formatı
+
+date ile özel format verebilirsin.
+
+%Y → yılı verir (4 haneli, örn. 2025)
+
+%m → ayı verir (01–12)
+
+%d → günü verir (01–31)
+
+%H → saati verir (00–23, 24 saat formatı)
+
+%M → dakikayı verir (00–59)
+
+%S → saniyeyi verir (00–59)
+
+Örnek:
+
+$ date +%Y%m%d_%H%M%S
+20250921_174523
+
+
+Buradaki _ sadece senin koyduğun ayraçtır, tarih ile saati ayırır.
+
+3. DATE=$( ... )
+
+Bash’te $( ... ) komut çalıştırma (command substitution) demektir.
+Komutun çıktısını alıp bir değişkene atar.
+
+Örnek:
+
+DATE=$(date +%Y%m%d_%H%M%S)
+echo $DATE
+
+
+Çıktı:
+
+20250921_174523
+
+4. Kullanım amacı
+
+Böyle bir timestamp genelde benzersiz dosya/dizin adı üretmek için kullanılır:
+
+cp log.csv log_$DATE.csv
+
+
+Sonuç:
+
+log_20250921_174523.csv
+
+
+Yani aynı dosyadan çoklu kopya alırken üzerine yazmayı önlemek için.
+
+Özet:
+
+date +%Y%m%d_%H%M%S → özel formatta tarih-saat üretir.
+
+$( ... ) → çıktıyı değişkene atar.
+
+DATE=$(...) → o anın tarih-saatini değişkene kaydeder.
