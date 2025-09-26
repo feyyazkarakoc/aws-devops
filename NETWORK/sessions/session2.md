@@ -1,22 +1,3 @@
-
-# NIC (Network Interface Card) – Ağ Kartı
-
-Bilgisayarı ağa bağlayan donanımdır.
-
-Her bilgisayarda (Ethernet kartı, Wi-Fi kartı gibi) vardır.
-
-OSI Katmanı: Layer 2 (Data Link – Veri Bağlantı Katmanı)
-
-Görevleri:
-
-Cihaza MAC adresi kazandırır (eşsiz kimlik).
-
-Veriyi bilgisayarın anlayacağı formattan ağın anlayacağı formata çevirir.
-
-Gönderme/alma işlemlerini yönetir.
-
-Yani NIC olmadan bilgisayar ağa bağlanamaz.
-
 # Repeater – Tekrarlayıcı
 
 OSI Katmanı: Layer 1 (Physical – Fiziksel Katman)
@@ -27,7 +8,7 @@ Hiç akıllı değildir, sadece elektrik sinyalini yeniler.
 
 Kullanım: Uzak mesafeli kablolarda (örneğin Ethernet kablosu 100 metreyi geçince sinyal zayıflar).
 
-📌 Repeater = sadece iletim gücünü artırır.
+Repeater = sadece iletim gücünü artırır.
 
 # Hub
 
@@ -46,12 +27,31 @@ Hub, MAC adresi bilmez, öğrenmez → sadece “tekrarlayıcı + çoklu çıkı
 Hub = çok portlu repeater.
 
 Kısaca Özet
-Cihaz	OSI Katmanı	Görevi	Akıllı mı?
-NIC	2 (Data Link)	Bilgisayarı ağa bağlar, MAC adresi sağlar	Evet
-Repeater	1 (Physical)	Sinyali güçlendirir, tekrar gönderir	Hayır
-Hub	1 (Physical)	Veriyi tüm portlara dağıtır	Hayır
+Cihaz	OSI Katmanı	                Görevi	                                        Akıllı mı?
+NIC	      2 (Data Link)	       Bilgisayarı ağa bağlar, MAC adresi sağlar	          Evet
+Repeater  1 (Physical)	       Sinyali güçlendirir, tekrar gönderir	                  Hayır
+Hub	      1 (Physical)	       Veriyi tüm portlara dağıtır	                          Hayır
 
 Günümüzde hub ve repeater çok az kullanılır. Onların yerine switch ve router kullanılır, çünkü daha akıllı cihazlardır.
+
+
+# NIC (Network Interface Card) – Ağ Kartı
+
+Bilgisayarı ağa bağlayan donanımdır.
+
+Her bilgisayarda (Ethernet kartı, Wi-Fi (Wireless kartı) kartı gibi) vardır.
+
+OSI Katmanı: Layer 2 (Data Link – Veri Bağlantı Katmanı)
+
+Görevleri:
+
+Cihaza MAC adresi kazandırır (eşsiz kimlik).
+
+Veriyi bilgisayarın anlayacağı formattan ağın anlayacağı formata çevirir.
+
+Gönderme/alma işlemlerini yönetir.
+
+Yani NIC olmadan bilgisayar ağa bağlanamaz.
 
 # Bridge’in Temel Görevi
 
@@ -130,12 +130,12 @@ Collision domain’i bölerek ağ performansını artırır.
 Full-duplex iletişimi (aynı anda gönderme ve alma) destekler.
 
 Switch vs Hub
-Özellik	Hub	Switch
-Katman	Layer 1 (Physical)	Layer 2 (Data Link)
-Veri iletimi	Herkese (broadcast)	Sadece hedefe
-Çarpışma (Collision)	Çok olur	Azalır
-Performans	Düşük	Yüksek
-Akıllı mı?	Hayır	Evet (MAC tablosu tutar)
+Özellik	                  Hub	                   Switch
+Katman	                  Layer 1 (Physical)	   Layer 2 (Data Link)
+Veri iletimi	          Herkese (broadcast)	   Sadece hedefe
+Çarpışma (Collision)	  Çok olur	               Azalır
+Performans	              Düşük	                   Yüksek
+Akıllı mı?	              Hayır	                   Evet (MAC tablosu tutar)
 
 Özet:
 Switch = Hub’ın akıllı versiyonu.
@@ -176,11 +176,11 @@ DHCP sunucu olabilir (cihazlara otomatik IP dağıtır).
 Güvenlik için firewall kuralları çalıştırabilir.
 
 Switch vs Router
-Özellik	Switch	Router
-OSI Katmanı	2 (Data Link)	3 (Network)
-Çalıştığı adres	MAC adresi	IP adresi
-Görevi	Aynı ağdaki cihazları birbirine bağlar	Farklı ağları birbirine bağlar
-Evdeki kullanım	Bilgisayar ↔ Bilgisayar	Ev LAN ↔ İnternet WAN
+Özellik	                 Switch	                                     Router
+OSI Katmanı	             2 (Data Link)	                             3 (Network)
+Çalıştığı adres	         MAC adresi	                                 IP adresi
+Görevi	                 Aynı ağdaki cihazları birbirine bağlar	     Farklı ağları birbirine bağlar
+Evdeki kullanım	         Bilgisayar ↔ Bilgisayar	                 Ev LAN ↔ İnternet WAN
 
 Özet:
 
@@ -368,7 +368,7 @@ NAT (Network Address Translation) + paket filtreleme mantığıyla çalışır.
 
 Örneğin: “Şu portu dışarıya açma”, “Şu IP’den gelen trafiği engelle” gibi ayarlar yapılabilir.
 
-🛠 Modemlerde Firewall Nasıl Çalışır?
+Modemlerde Firewall Nasıl Çalışır?
 
 Modem arayüzüne girdiğinde (genelde 192.168.1.1) “Security” veya “Firewall” sekmesi olur.
 
@@ -505,7 +505,7 @@ Application (Uygulama) → Tarayıcı, e-posta, FTP
 
 Encapsulation = veriyi bir katmandan diğerine gönderirken, üst katman verisini alt katman protokol başlığıyla sarmak.
 
-Mantık: Üst katman verisi → alt katmanda paket, çerçeve, segment, bit gibi formatlara dönüşür.
+Mantık: Üst katman verisi → alt katmanda  segment, paket, frame, bit gibi formatlara dönüşür.
 
 Örnek
 
@@ -601,3 +601,123 @@ Segment = Transport layer veri birimi
 Gönderici → segment oluşturur
 
 Alıcı → segmenti açar → veri uygulamaya ulaşır
+
+# NOS (Network Operating System)
+
+Açılımı: Network Operating System (Ağ İşletim Sistemi).
+
+Tanım: Bir bilgisayarın veya sunucunun ağ kaynaklarını (dosya paylaşımı, yazıcı, kullanıcı hesapları, güvenlik, erişim izinleri) yönetmesini sağlayan işletim sistemidir.
+
+Örnekler:
+
+Eski: Novell NetWare, Windows NT Server
+
+Günümüz: Windows Server, Linux tabanlı dağıtımlar
+
+Görevi:
+
+Ağdaki kullanıcıları tanır (login işlemleri)
+
+Dosya/yazıcı paylaşımı yapar
+
+Güvenlik politikalarını uygular
+
+Ağ yönetimi ve hata takibini yapar
+
+Yani NOS = “Ağ için özel işletim sistemi.”
+
+# Workstation
+
+Tanım: Genelde yüksek performanslı bilgisayar anlamına gelir.
+
+Normal PC’lerden farkı:
+
+Daha güçlü işlemci, RAM, ekran kartı
+
+Bilimsel hesaplama, mühendislik, grafik tasarım gibi işler için tasarlanır
+
+Ağ bağlamında:
+
+“Ağda çalışan kullanıcı bilgisayarı” anlamında da kullanılır.
+
+Örnek:
+
+Bir şirkette herkesin masasındaki bilgisayar workstation sayılır.
+
+Mühendislikte kullanılan güçlü bilgisayarlar da workstation’dır.
+
+Workstation = ya güçlü bireysel bilgisayar ya da ağdaki istemci bilgisayar.
+
+# Multimode Fiber
+
+Tanım: Veri iletiminde kullanılan fiber optik kablo türüdür.
+
+“Multimode” = birden fazla ışık yolu (mode) ile veri taşır.
+
+Özellikleri:
+
+Daha kısa mesafe (genelde 2 km’ye kadar)
+
+Daha ucuz ekipman (lazer yerine LED ışık kaynağı kullanılır)
+
+Geniş bant desteği (10 Gbps, 40 Gbps hızlara çıkabilir kısa mesafede)
+
+Kullanım Alanı:
+
+Kampüs ağları
+
+Binalar arası bağlantı
+
+Veri merkezlerinde kısa mesafe fiber bağlantı
+
+Multimode fiber = ucuz, kısa mesafe, çok ışık yolu → daha fazla sinyal kayması (distorsiyon).
+
+# Packet-Switching
+
+Tanım: Verilerin küçük paketlere bölünerek ağ üzerinden gönderilmesi yöntemidir.
+
+Her paket: veri + kaynak adresi + hedef adresi + kontrol bilgisi içerir.
+
+Özellikleri:
+
+Aynı anda birçok kullanıcı veri gönderebilir (kaynaklar paylaşılır).
+
+Paketler farklı yollardan gidip hedefte birleşebilir.
+
+Günümüz internetinin temelini oluşturur.
+
+Avantajları:
+
+Daha verimli bant genişliği kullanımı
+
+Hata olursa sadece kayıp paket yeniden gönderilir
+
+Örnek:
+
+Sen WhatsApp’tan fotoğraf gönderdiğinde → tek parça gitmez → paketlere bölünür → internet üzerinden farklı rotalardan geçip karşı tarafta birleştirilir.
+
+Packet-switching = “veri parçalanır → paket olur → ağda yol bulur.”
+
+# Proxy Server
+
+Tanım: Kullanıcı ile internet arasına giren aracı sunucu.
+
+Görevleri:
+
+Anonimlik/Gizlilik → Kullanıcı gerçek IP’sini gizler.
+
+Cache (önbellek) → Sık ziyaret edilen siteleri saklar, hızlandırır.
+
+Filtreleme → Yasaklı siteleri engeller (okullar, şirketler).
+
+Güvenlik → Trafiği kontrol ederek kötü amaçlı içerikleri engeller.
+
+Çalışma Şekli:
+
+Sen bir siteye istek atarsın → önce proxy server’a gider → proxy siteye ulaşır → cevabı sana döner.
+
+Örnek:
+
+Bir okulda öğrenciler internete çıkarken önce proxy’den geçer, okul hangi sitelere girileceğini kontrol eder.
+
+Proxy = arada duran trafik kontrolcüsü + hızlandırıcı + gizleyici.
