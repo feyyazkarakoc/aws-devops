@@ -80,8 +80,6 @@ Bu süreç hep Ethernet protokolünün kuralları ile yapılır.
 Özet:
 Ethernet protokolü, LAN içindeki cihazların MAC adresleriyle birbirini tanıyıp, veriyi frame’ler halinde göndermesini sağlayan, IEEE 802.3 standardı ile tanımlanmış en yaygın ağ iletişim protokolüdür.
 
-İstersen sana Ethernet frame’in iç yapısını (başlık, adresler, veri, hata kontrol kısmı) görsel gibi şematik anlatabilirim. Onu da ister misin?
-
 # Ethernet protokolü hem bilgisayara hem switche hem yazıcıya mı tanımlanmış?
 Ethernet protokolü “sadece bilgisayarda çalışıyor” ya da “sadece switch biliyor” gibi bir şey değil.
 Ağa bağlı olan tüm cihazların ortak dili.
@@ -182,6 +180,7 @@ Layer 2 iletişim için kullanılır
 Switch'ler MAC tablosu tutar
 
 4. CSMA/CD (Collision Detection)
+
 Eski Ethernet'te kullanılan çoklu erişim yöntemi:
 javaCSMA/CD Algoritması:
 
@@ -207,6 +206,7 @@ Ethernet evrim sürecinde:
 2010'lar → 10 Gbps   (10 Gigabit)
 2020'ler → 100+ Gbps (Ultra-high speed)
 Auto-negotiation: Cihazlar otomatik en yüksek hızı belirler.
+
 6. Standartlar ve Uyumluluk
 IEEE 802.3 Standart Ailesi:
 802.3      → Original Ethernet (10 Mbps)
@@ -214,9 +214,11 @@ IEEE 802.3 Standart Ailesi:
 802.3ab    → Gigabit over UTP
 802.3ae    → 10 Gigabit Ethernet
 802.3bz    → 2.5G/5G over existing UTP
+
 7. Yaygın Kullanım ve Uygulamalar
+
 LAN Ağları:
-java// Tipik ofis ağı
+Tipik ofis ağı
 Switch ← Ethernet → PC/Laptop
 Switch ← Ethernet → Server  
 Switch ← Ethernet → Printer
@@ -235,6 +237,7 @@ Layer 4 (Transport)    → TCP/UDP
 Layer 3 (Network)      → IP Protocol
 Layer 2 (Data Link)    → ETHERNET ←←← Ana katman
 Layer 1 (Physical)     → ETHERNET ←←← Fiziksel medya
+
 Ethernet'in başarı faktörleri:
 
 Basit ve güvenilir
@@ -266,7 +269,7 @@ TCP POST (Güvenilir):
 - Her parça için "alındı" belgesi iste
 - Kaybolanları tekrar gönder
 Bilgisayarda Nasıl Çalışır:
-java// Büyük dosya gönderiyorsun
+Büyük dosya gönderiyorsun
 "Merhaba Dünya Bu Çok Uzun Bir Mesaj"
 
 TCP bunu böyle parçalar:
@@ -279,6 +282,7 @@ Gönder → Parça 1 → "Aldım 1. parçayı"
 Gönder → Parça 2 → "Aldım 2. parçayı"
 Gönder → Parça 3 → CEVAP YOK!
 Tekrar Gönder → Parça 3 → "Aldım 3. parçayı"
+
 2. Akış Kontrolü  sağlar.
 Su Muslugu Örneği:
 Musluktan su akan → Kovaya dolduruluyor
@@ -292,7 +296,7 @@ Kova neredeyse dolu:
 Kova boşaltıldı:
 "Tamam, devam edebilirsin"
 Bilgisayarda:
-javaGönderen: "1000 byte gönderiyorum!"
+Gönderen: "1000 byte gönderiyorum!"
 Alıcı: "Dur! Sadece 500 byte alan kaldı"
 Gönderen: "Tamam, 500 byte gönderiyorum"
 
@@ -310,7 +314,7 @@ SMS (UDP gibi):           Telefon Görüşmesi (TCP gibi):
                          - "Hoşçakal" "Hoşçakal"
                          - Telefonu kapat
 Bilgisayarda:
-java// TCP Bağlantı kurma
+TCP Bağlantı kurma
 Client: "Bağlanmak istiyorum"
 Server: "Tamam, bağlan"  
 Client: "Teşekkürler, bağlandım"
@@ -382,89 +386,6 @@ UDP: Hızlı, güvensiz, garanti yok
 
 Spring Boot uygulamanız HTTP kullandığında, altta TCP çalışır. Bu yüzden web sayfanız güvenilir şekilde yüklenir!
 
-
-# SMTP zaten protokol, o zaman TCP’yi nasıl kullanıyor?
-
-Evet, SMTP (Simple Mail Transfer Protocol) bir uygulama katmanı protokolüdür (OSI Layer 7).
-Ama şunu unutma:
-Uygulama katmanındaki protokoller kendi başlarına veri taşıyamazlar.
-
-SMTP: “E-mail göndereceğim, mesaj şu” der.
-
-Ama bu mesajın bilgisayardan karşı tarafa taşınması için alt katmanlara ihtiyaç vardır.
-
-Bu yüzden:
-
-SMTP mesajını Taşıma katmanına verir.
-
-Taşıma katmanında TCP kullanılır (TCP güvenilir iletişim sağlar).
-
-TCP de veriyi IP üzerinden yollar.
-
-IP de veriyi Ethernet / Wi-Fi üzerinden taşır.
-
-Yani SMTP, TCP üzerinden çalışır.
-Bu yüzden “SMTP TCP kullanır” deriz.
-
-# Bir protokol başka protokolü kullanır mı?
-
-Kesinlikle evet. İşte OSI katmanları bunun için vardır.
-
-Örnek: Gmail’den mail gönderiyorsun:
-
-SMTP (uygulama katmanı) → “Bu mail Ali’ye gitsin.”
-
-TCP (taşıma katmanı) → “Bu veriyi güvenli, sırayla ve hatasız gönder.”
-
-IP (ağ katmanı) → “Bu veriyi şu IP adresine yönlendir.”
-
-Ethernet/Wi-Fi (fiziksel + veri katmanı) → “Bu veriyi kablo veya havadan gönder.”
-
-Yani üst katman protokolü, alt katman protokolünü kullanır.
-
-# TCP kullanan ve kullanmayan portlar?
-
-Port numarası, sadece “hangi uygulama/protokol çalışıyor” bilgisini verir.
-
-Örn:
-
-80 → HTTP (TCP kullanır)
-
-443 → HTTPS (TCP kullanır)
-
-25 → SMTP (TCP kullanır)
-
-53 → DNS (hem UDP hem TCP kullanabilir)
-
-67-68 → DHCP (UDP kullanır)
-
-Yani port = kapı numarası
-“TCP mi UDP mi” = o kapının arkasında verinin nasıl taşındığı.
-
-# Portlar da mı protokol kullanır?
-
-Port protokol değildir, sadece numaradır.
-
-Ama o portun hangi protokole bağlı olduğunu IANA belirlemiştir.
-
-25 → SMTP
-
-3306 → MySQL
-
-22 → SSH
-
-O protokol de TCP mi, UDP mi kullanacağına karar verir.
-
-Kısa özet:
-
-SMTP bir uygulama protokolüdür → ama taşıma için TCP’ye ihtiyaç duyar.
-
-TCP = güvenilir taşıma protokolü
-
-UDP = hızlı ama güvenilmez taşıma protokolü
-
-Port = kapı numarası, hangi protokolün çalıştığını söyler.
-
 # ARP Nedir?
 
 ARP = Address Resolution Protocol
@@ -521,7 +442,218 @@ Sunucu
 
 Yani IP üzerinden haberleşen herkesin ihtiyacı var.
 
-# 🔹 1. DHCP (Dynamic Host Configuration Protocol)
+# Neden http server deniliyor, bu fiziksel bir server mi?
+“HTTP server” lafı ilk duyulduğunda çoğu kişinin kafası karışıyor çünkü hem fiziksel cihaz hem de yazılım anlamına gelebiliyor. 
+
+🔹 1. HTTP Server Ne Demek?
+
+HTTP server = HTTP protokolünü kullanarak istemcilerin (tarayıcı, uygulama) isteklerine cevap veren yazılım.
+
+HTTP (HyperText Transfer Protocol) → Web sayfalarının tarayıcıya aktarılması için kullanılan protokol.
+
+Server → Bu protokolü anlayan ve cevap üreten yazılım.
+
+Yani “HTTP server” dediğimiz şey, bir yazılımdır (örn: Apache, Nginx, Microsoft IIS).
+
+🔹 2. HTTP Server Nerede Çalışır?
+
+HTTP server yazılımı genellikle:
+
+Fiziksel bir sunucuda (örneğin bir veri merkezinde duran güçlü bilgisayar)
+
+veya sanal bir sunucuda (cloud/VPS)
+çalışır.
+
+Yani HTTP server kendi başına fiziksel bir cihaz değil, bir programdır. Ama o program bir sunucuda (donanımda) çalıştığı için bazen halk arasında “server” denildiğinde donanım kastedilir.
+
+🔹 3. Örnek
+
+Sen tarayıcıda https://example.com yazıyorsun.
+
+Tarayıcı (client) → HTTP isteği gönderiyor (TCP 80 veya HTTPS ise TCP 443).
+
+Karşı tarafta Nginx veya Apache HTTP Server yazılımı o isteği alıyor.
+
+Server yazılımı sana web sayfasını geri gönderiyor.
+
+Burada:
+
+Donanım: Fiziksel bilgisayar (sunucu)
+
+Yazılım: HTTP server (Apache, Nginx)
+
+Protokol: HTTP
+
+Özet:
+
+HTTP server = yazılım
+
+Ama bu yazılım mutlaka bir sunucu donanımında çalışır.
+
+O yüzden “HTTP server” bazen donanımı da kasteder gibi kullanılır ama teknik olarak protokolü çalıştıran yazılım demektir.
+
+# FTP protokolünü açıklar mısın?
+FTP (File Transfer Protocol) bilgisayar ağlarında çok kullanılan temel protokollerden biri.
+
+🔹 1. FTP Nedir?
+
+FTP (File Transfer Protocol) = Dosya transferi için geliştirilmiş, çok eski (1970’lerden beri kullanılan) bir Uygulama Katmanı protokolüdür (OSI Layer 7).
+
+Görevi:
+
+Bir istemci (client) ile bir sunucu (server) arasında dosya yüklemek (upload) ve dosya indirmek (download).
+
+🔹 2. FTP Nasıl Çalışır?
+
+FTP, TCP/IP üzerine kurulu bir protokoldür. Yani:
+
+TCP kullanır (UDP değil) → çünkü güvenilir (veri kaybolmaz) transfer gerekir.
+
+Port 21 → kontrol kanalı (komutlar burada gönderilir: giriş yap, dosya listele vs.)
+
+Port 20 → veri kanalı (dosyaların kendisi buradan akar).
+
+Yani FTP’de iki ayrı bağlantı vardır:
+
+Kontrol Kanalı (21) → “Şu dosyayı indir”, “Şu klasörü listele” gibi komutlar.
+
+Veri Kanalı (20) → İstediğin dosyanın içeriği.
+
+🔹 3. Çalışma Senaryosu
+
+Sen FTP istemcisi açarsın (örn: FileZilla veya terminalden ftp).
+
+Sunucuya bağlanırsın:
+
+ftp://ftp.sunucu.com
+kullanıcı: feyyaz
+şifre: ****
+
+
+Sunucu seni kimlik doğrulama (username & password) ile tanır.
+
+Sen komut gönderirsin (21. port üzerinden):
+
+LIST   → klasörleri listele
+GET x.txt → x.txt dosyasını indir
+PUT y.txt → y.txt dosyasını yükle
+
+
+Sunucu veri kanalından (20. port) sana dosya akıtır.
+
+🔹 4. FTP Türleri
+
+Klasik FTP → şifreler dahil her şey düz metin (plain text) gönderilir → güvenlik zaafı.
+
+FTPS (FTP Secure) → SSL/TLS ile şifreli.
+
+SFTP (SSH File Transfer Protocol) → FTP ile karıştırılır ama aslında tamamen farklıdır; SSH üzerinden dosya transferidir, port 22 kullanır.
+
+🔹 5. Nerelerde Kullanılır?
+
+Web sitelerine dosya yüklemek (webmaster’lar FTP ile site dosyalarını server’a atar).
+
+Sunucudan büyük veriler indirmek.
+
+Şirket içi dosya paylaşımları.
+
+Ama:
+Güvenlik sorunları yüzünden artık çoğu yerde SFTP veya HTTPS tabanlı transfer tercih ediliyor.
+
+Özet:
+FTP → Dosya transferi protokolü
+
+OSI Katmanı: 7 (Application)
+
+Port: 21 (kontrol), 20 (veri)
+
+TCP kullanır
+
+Türleri: FTP, FTPS, SFTP
+
+
+# FTP server dendiğinde ne anlamalıyım?
+
+🔹 1. FTP Server Nedir?
+
+Bir FTP server, üzerinde FTP protokolünü çalıştıran bir yazılımın kurulu olduğu bilgisayardır (sunucu).
+
+Görevi:
+
+İstemcilerden gelen FTP bağlantılarını kabul etmek (port 21 üzerinden).
+
+Kullanıcı kimlik doğrulaması yapmak (kullanıcı adı/şifre).
+
+İsteyenlere dosya indirme (download) ve yükleme (upload) hizmeti vermek.
+
+Yani FTP server, senin dosya deposu gibi düşünebileceğin bir sistemdir.
+
+🔹 2. FTP Server’ın Yapısı
+
+Fiziksel olarak: Bu genelde bir sunucu bilgisayarıdır (datacenter’da duran güçlü bir makine). Ama aslında herhangi bir PC de FTP server olabilir (örn: Windows veya Linux’ta FileZilla Server kurarsan).
+
+Mantıksal olarak: Bir program (daemon/service) sürekli çalışır ve “Port 21’den gelen bağlantı var mı?” diye dinler.
+
+
+# SMTP zaten protokol, o zaman TCP’yi nasıl kullanıyor?
+
+Evet, SMTP (Simple Mail Transfer Protocol) bir uygulama katmanı protokolüdür (OSI Layer 7).
+Ama şunu unutma:
+Uygulama katmanındaki protokoller kendi başlarına veri taşıyamazlar.
+
+SMTP: “E-mail göndereceğim, mesaj şu” der.
+
+Ama bu mesajın bilgisayardan karşı tarafa taşınması için alt katmanlara ihtiyaç vardır.
+
+Bu yüzden:
+
+SMTP mesajını Taşıma katmanına verir.
+
+Taşıma katmanında TCP kullanılır (TCP güvenilir iletişim sağlar).
+
+TCP de veriyi IP üzerinden yollar.
+
+IP de veriyi Ethernet / Wi-Fi üzerinden taşır.
+
+Yani SMTP, TCP üzerinden çalışır.
+Bu yüzden “SMTP TCP kullanır” deriz.
+
+# Bir protokol başka protokolü kullanır mı?
+
+Kesinlikle evet. İşte OSI katmanları bunun için vardır.
+
+Örnek: Gmail’den mail gönderiyorsun:
+
+SMTP (uygulama katmanı) → “Bu mail Ali’ye gitsin.”
+
+TCP (taşıma katmanı) → “Bu veriyi güvenli, sırayla ve hatasız gönder.”
+
+IP (ağ katmanı) → “Bu veriyi şu IP adresine yönlendir.”
+
+Ethernet/Wi-Fi (fiziksel + veri katmanı) → “Bu veriyi kablo veya havadan gönder.”
+
+Yani üst katman protokolü, alt katman protokolünü kullanır.
+
+
+# Port numarası, sadece “hangi uygulama/protokol çalışıyor” bilgisini verir.
+
+Örn:
+
+80 → HTTP (TCP kullanır)
+
+443 → HTTPS (TCP kullanır)
+
+25 → SMTP (TCP kullanır)
+
+53 → DNS (hem UDP hem TCP kullanabilir)
+
+67-68 → DHCP (UDP kullanır)
+
+Yani port = kapı numarası
+“TCP mi UDP mi” = o kapının arkasında verinin nasıl taşındığı.
+
+
+# DHCP (Dynamic Host Configuration Protocol)
 
 Görevi: Cihaza IP, Subnet Mask, Gateway, DNS verir.
 
@@ -529,7 +661,7 @@ Görevi: Cihaza IP, Subnet Mask, Gateway, DNS verir.
 
 Çalışma katmanı: Uygulama Katmanı (Layer 7), ama UDP port 67/68 üzerinden çalışır.
 
-NAT yapmaz ❌
+NAT yapmaz 
 
 Sadece “IP dağıtır”.
 
@@ -553,7 +685,7 @@ Port kullanmaz, TCP/UDP değildir.
 
 Çalışma katmanı: 2 ile 3 arasında köprü
 
-🔗 Peki ARP nerede kullanılır?
+Peki ARP nerede kullanılır?
 
 LAN içinde: Bilgisayarın gateway (192.168.1.1) ile konuşmak ister → önce ARP yapar, “Bu IP hangi MAC’te?” der.
 
@@ -571,5 +703,176 @@ ARP: IP’nin MAC karşılığını bulur.
 
 NAT: Özel IP’yi genel IP’ye çevirir.
 
-📌 Yani NAT’ı DHCP yapmaz, NAT’ı router/modem yapar.
-📌 ARP ise LAN’da iletişim kurabilmek için her zaman devrededir, DHCP veya NAT’tan bağımsızdır ama onlarla birlikte çalışır.
+Yani NAT’ı DHCP yapmaz, NAT’ı router/modem yapar.
+ARP ise LAN’da iletişim kurabilmek için her zaman devrededir, DHCP veya NAT’tan bağımsızdır ama onlarla birlikte çalışır.
+
+# SMTP (Simple Mail Transfer Protocol) en basit haliyle e-posta gönderme protokolüdür.
+
+Açılımı: Simple Mail Transfer Protocol (Basit Posta Aktarım Protokolü).
+
+Katman: OSI’nin Uygulama Katmanı (Application Layer) protokolüdür.
+
+Görevi: E-posta istemcisinden (Outlook, Thunderbird gibi) veya başka bir e-posta sunucusundan mail gönderimini sağlar.
+
+Çalışma Yapısı:
+
+Bir kullanıcı mail gönderdiğinde SMTP, o maili alır ve hedef mail sunucusuna ulaştırmak için çalışır.
+
+Eğer hedef sunucuya doğrudan erişemiyorsa, aradaki SMTP sunucularına yönlendirerek iletir (relay).
+
+Bağlantı:
+
+Genellikle TCP kullanır (UDP değil).
+
+Varsayılan portları:
+
+25: Sunucular arası mail aktarımı (server-to-server).
+
+587: Mail istemcilerinden gönderim (submission).
+
+465: SSL üzerinden güvenli SMTP (SMTPS).
+
+Özet:
+
+SMTP = Gönderim protokolü.
+
+IMAP/POP3 = Alma protokolleri.
+
+Yani, mail kutuna gelen mailleri görmek için SMTP kullanılmaz, IMAP veya POP3 gerekir.
+
+
+# IMAP/POP3 = Alma protokolleri nedir?
+
+E-mail dünyasında SMTP sadece gönderim içindir.
+Ama mail almak/görmek için başka protokoller gerekir → işte onlar POP3 ve IMAP.
+
+1. POP3 (Post Office Protocol v3)
+
+Açılımı: Postane Protokolü, sürüm 3.
+
+Görevi: E-postaları sunucudan indirir.
+
+Çalışma mantığı:
+
+Outlook, Thunderbird, vs. gibi bir istemci sunucuya bağlanır.
+
+E-mailleri bilgisayara indirir.
+
+Varsayılan ayarlarda indirilen mail sunucudan silinir (yani başka cihazdan göremezsin).
+
+Portları:
+
+110 (standart TCP)
+
+995 (SSL/TLS ile güvenli POP3S)
+
+Avantaj: İnternet olmasa bile indirdiğin maillere erişirsin.
+
+Dezavantaj: Mailler genellikle tek cihaza düşer, senkronizasyon yoktur.
+
+2. IMAP (Internet Message Access Protocol)
+
+Görevi: Mailleri sunucuda tutar, sen cihazdan sadece görüntülersin.
+
+Çalışma mantığı:
+
+Telefon, bilgisayar, tablet → hepsi aynı sunucuya bağlanır.
+
+Mail silersen, klasör eklersen, okundu işaretlersen → bu değişiklik tüm cihazlarda senkronize olur.
+
+Portları:
+
+143 (standart TCP)
+
+993 (SSL/TLS ile güvenli IMAPS)
+
+Avantaj: Çoklu cihaz desteği (mesela Gmail’i hem telefonda hem bilgisayarda aynı anda kullanabilirsin).
+
+Dezavantaj: İnternet yoksa mailleri göremezsin (cache dışında).
+
+Özet
+
+SMTP → Gönderim protokolü
+
+POP3 → Al, indir, genellikle sunucudan sil.
+
+IMAP → Al, senkronize et, sunucuda sakla.
+
+# 🔹 Port Nedir?
+
+Port = Mantıksal kapı / kanal
+
+Bilgisayarında aynı anda bir sürü uygulama interneti kullanıyor olabilir (mesela YouTube, WhatsApp Web, Online oyun).
+
+Hepsi aynı IP adresi üzerinden dış dünyaya çıkar ama hangi paketin hangi programa gideceğini ayırt etmek için port numaraları kullanılır.
+
+Yani IP adresi = Apartman adresi
+Port numarası = O apartmandaki daire numarası
+
+🔹 Port Sayısı
+
+Port numaraları 16 bit ile tutulur.
+
+Yani 0’dan 65535’e kadar (toplam 65.536 adet) port vardır.
+
+🔹 Port Türleri
+
+Portlar kullanım alanlarına göre 3 gruba ayrılır:
+
+Well-known ports (0 – 1023)
+
+“Ünlü, bilinen portlar” → Standart protokoller için ayrılmıştır.
+
+Örnekler:
+
+20/21 → FTP
+
+22 → SSH
+
+25 → SMTP
+
+53 → DNS
+
+80 → HTTP
+
+443 → HTTPS
+
+Registered ports (1024 – 49151)
+
+Uygulamalar, servisler için ayrılmıştır.
+
+Örn:
+
+3306 → MySQL
+
+3389 → RDP
+
+8080 → alternatif HTTP
+
+Dynamic / Private / Ephemeral ports (49152 – 65535)
+
+“Geçici portlar” → Sen bir uygulama açtığında işletim sistemi otomatik atar.
+
+Örn: Tarayıcı Google’a bağlanırken 80/443’e gider ama bilgisayarın kendisi rastgele bir yüksek port numarasını (mesela 52341) kullanır.
+
+🔹 Portların Protokollerle İlişkisi
+
+Protokoller (HTTP, SMTP, DNS vs.) TCP ya da UDP üzerinden çalışır.
+
+Yani aslında her portun iki versiyonu vardır:
+
+TCP 80
+
+UDP 80
+
+Toplamda → 65.536 × 2 = 131.072 mantıksal kapı vardır.
+
+Özet:
+
+65.536 port var (0–65535).
+
+İki tür protokol (TCP/UDP) olduğu için her port çift.
+
+Düşük portlar (0–1023) standartlara ayrılmış.
+
+Yüksek portlar uygulamalar ve dinamik bağlantılar için kullanılıyor.
