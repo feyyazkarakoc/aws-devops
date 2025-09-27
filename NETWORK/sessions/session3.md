@@ -876,3 +876,266 @@ Toplamda → 65.536 × 2 = 131.072 mantıksal kapı vardır.
 Düşük portlar (0–1023) standartlara ayrılmış.
 
 Yüksek portlar uygulamalar ve dinamik bağlantılar için kullanılıyor.
+
+# Aynı Ağdaki Cihazlar Nasıl İletişim Kurar?
+
+1. Başlangıç Durumu - Bilgisayar Düşünüyor
+b2b2 isimli bilgisayar (IP adresi 192.168.1.20), ala1 isimli bilgisayara (IP adresi 192.168.1.10) veri göndermek istiyor. Ama bir problem var: b2b2 bilgisayarı ala1'in MAC adresini bilmiyor.
+Bilgisayarın mantığı şu: "Ben IP adresini biliyorum ama fiziksel adresi (MAC adresi) bilmiyorum. Veriyi göndermek için önce bu bilgisayarın fiziksel adresini öğrenmem lazım."
+b2b2 kendi bellek tablosuna bakıyor ve "192.168.1.10'un MAC adresi nedir?" diye soruyor kendine. Tabloda sadece router'ın MAC adresi var, ala1'in MAC adresi yok.
+2. ARP Süreci - Herkese Sesleniyor
+b2b2 bilgisayarı şu stratejiyi benimsiyor: "Madem MAC adresini bilmiyorum, o zaman ağdaki herkese sorayım!"
+Bu amaçla özel bir mesaj hazırlıyor. Bu mesajın zarfında (Ethernet frame) şu bilgiler var:
+
+Alıcı adresi: FF:FF:FF:FF:FF:FF (Bu özel adres "herkese" demek)
+Gönderen adresi: Kendi MAC adresi
+Mesaj içeriği: "Hey! 192.168.1.10 IP adresine sahip olan var mı? Varsa MAC adresini söyler misin?"
+
+Bu mesaj ağdaki switch'e ulaşıyor.
+3. Switch'in Tepkisi - Herkese Dağıtım
+Switch bu "herkese" yazılmış mesajı aldığında şöyle düşünüyor: "Bu mesaj herkese yazılmış, o zaman bağlı olduğum bütün cihazlara iletmeliyim."
+Switch aynı zamanda akıllı bir cihaz. Gelen mesajdan şunu öğreniyor: "Ah, b2b2:b2:b2:b2:b2:b2 MAC adresli cihaz 1 numaralı portuma bağlı. Bunu tabloma not edeyim."
+Sonra mesajı ala1, e4e4, f5f5 ve router'a gönderiyor.
+4. Sadece Bir Cevap - ala1'in Yanıtı
+Ağdaki tüm cihazlar bu "Kim 192.168.1.10?" sorusunu alıyor. Ama sadece ala1 bilgisayarı şöyle düşünüyor: "Hey! Bu benim IP adresim! Ben cevap vermeliyim."
+ala1 bir cevap mesajı hazırlıyor:
+
+Bu sefer sadece b2b2'ye (broadcast değil, direkt)
+"Merhaba b2b2! Ben 192.168.1.10'um ve MAC adresim a1:a1:a1:a1:a1:a1"
+
+Bu cevap switch'e geliyor ve switch de "ala1 cihazı 2 numaralı portumda" diye tabloya not ediyor.
+5. Bilgi Güncelleme - Artık Tanışıyorlar
+Her iki bilgisayar da artık birbirini tanıyor:
+
+b2b2: "Artık biliyorum, 192.168.1.10'un MAC adresi a1:a1:a1:a1:a1:a1"
+ala1: "Artık biliyorum, 192.168.1.20'nin MAC adresi b2b2:b2:b2:b2:b2:b2"
+
+Bu bilgileri kendi adres defterlerine (ARP table) yazıyorlar. Artık bir dahaki sefere sormaya gerek kalmayacak.
+6. Gerçek Veri Gönderimi - Ana Mesaj
+Artık MAC adresini öğrendiğine göre, b2b2 gerçek mesajını gönderebilir. Paket şöyle hazırlanıyor:
+Zarfın üstü (Ethernet Header):
+
+"Kime: a1:a1:a1:a1:a1:a1 adresindeki ala1'e"
+"Kimden: b2:b2:b2:b2:b2:b2 adresindeki b2b2'den"
+"İçerik türü: IP paketi"
+
+Paketin içindeki adres bilgisi (IP Header):
+
+"192.168.1.20'den 192.168.1.10'a"
+"TCP protokolü kullanılıyor"
+
+Uygulama bilgisi (TCP Header):
+
+"5000 numaralı porttan 80 numaralı porta"
+
+Gerçek mesaj:
+
+"Merhaba ala1!"
+
+Hangi Protokoller Neden Kullanılıyor/Kullanılmıyor:
+Kullanılan Protokoller ve Nedenleri:
+ARP kullanılıyor çünkü: "IP adresini biliyorum ama fiziksel adresi bilmiyorum, öğrenmem lazım."
+Ethernet kullanılıyor çünkü: "Yerel ağda fiziksel olarak veri taşımak için gerekli."
+IP kullanılıyor çünkü: "Hangi bilgisayardan hangi bilgisayara gideceğini belirtmek için."
+TCP kullanılıyor çünkü: "Hangi uygulamadan hangi uygulamaya gideceğini ve güvenilir iletim için."
+Kullanılmayan Protokoller ve Nedenleri:
+NAT kullanılmıyor çünkü: "İkisi de aynı ağda, dış dünyaya çıkmıyorlar. Router NAT yapmıyor."
+DHCP kullanılmıyor çünkü: "IP adresleri zaten var ve sabit. Yeni IP adresi atanmıyor."
+DNS kullanılmıyor çünkü: "İsimleri çevirmiyoruz, direkt IP adresi kullanıyoruz."
+Switch'in Öğrenme Süreci:
+Switch başlangıçta kimsenin nerede olduğunu bilmiyor. Ama her mesaj aldığında şöyle düşünüyor:
+
+"Bu mesaj hangi porttan geldi?"
+"Gönderen MAC adresi neydi?"
+"O zaman bu MAC adresi bu portta demektir, tabloya yazayım."
+
+Zamanla switch ağdaki herkesin nerede olduğunu öğrenir ve mesajları sadece gerekli porta gönderir, gereksiz yere herkese göndermez.
+Bu süreçte router hiç devreye girmez çünkü her iki bilgisayar da aynı ağda (192.168.1.x). Router sadece farklı ağlara gidildiğinde çalışır.
+
+# Subnet Mask: 
+IP adresinin hangi kısmının ağ, hangi kısmının ise host olduğunu tanımlamak için kullanılır. Örneğin, 255.255.255.0 subnet maskesi, IP adresinin ilk üç oktetinin ağ adresini, son oktetinin ise host adresini belirlediğini gösterir. Bu durumda, "192.168.1.0" ağ adresi, "0-255" aralığı ise bu ağa bağlı cihazların adreslerini temsil eder.
+
+# Farklı Ağlardaki Cihazlar Nasıl İletişim Kurar?
+
+1. Başlangıç Durumu - Bilgisayar Ağı Analiz Ediyor
+b2b2 bilgisayarı (192.168.1.20) bu sefer e4e4 bilgisayarına (192.168.5.10) veri göndermek istiyor.
+b2b2 şöyle düşünüyor: "192.168.5.10'a veri göndermek istiyorum. Bakalım bu adres benim ağımda mı?"
+
+Subnet Mask kontrolü yapıyor:
+Benim IP'im: 192.168.1.20 (subnet mask: 255.255.255.0)
+Hedef IP: 192.168.5.10
+Benim network: 192.168.1.0/24
+Hedef network: 192.168.5.0/24
+
+"Farklı ağlardayız! Bu durumda gateway (router) kullanmam gerekiyor."
+
+2. Gateway Bilgisini Kontrol Etme
+b2b2 kendi ağ ayarlarına bakıyor:
+
+IP: 192.168.1.20
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.1.1 (Router'ın IP'si)
+
+"Tamam, farklı ağa gitmek için 192.168.1.1 adresindeki router'ı kullanacağım. Ama router'ın MAC adresini biliyorum mu?"
+ARP tablosunu kontrol ediyor:
+IP Address       MAC Address         Interface
+192.168.1.1      rr:rr:rr:rr:rr:rr  eth0  (Router MAC var!)
+Eğer router'ın MAC adresi yoksa, önce router'a ARP request gönderir.
+
+3. İlk Paket Hazırlığı - Router'a Gönderme
+b2b2 paketini şöyle hazırlıyor:
+Ethernet Frame (Layer 2):
+
+Dest MAC: rr:rr:rr:rr:rr:rr (Router'ın MAC adresi!)
+Src MAC: b2:b2:b2:b2:b2:b2 (Kendi MAC adresi)
+
+IP Packet (Layer 3):
+
+Src IP: 192.168.1.20 (Değişmez!)
+Dest IP: 192.168.5.10 (Değişmez!)
+
+TCP Segment (Layer 4):
+
+Src Port: 5000
+Dest Port: 80
+Data: "Merhaba e4e4!"
+
+"Ben IP paketini 192.168.5.10'a gönderiyorum ama fiziksel olarak router'a teslim ediyorum."
+
+4. Router'ın İlk Ağdaki İşlemleri
+Router paketi aldığında şöyle düşünüyor:
+"Bana bir paket geldi. Bakalım:"
+
+Dest MAC: Benim MAC adresim (bana geldi)
+Dest IP: 192.168.5.10 (bu benim değil, yönlendirmem lazım)
+
+Routing Table kontrolü:
+Network          Next Hop        Interface
+192.168.1.0/24   Directly Connected   eth0
+192.168.5.0/24   Directly Connected   eth1
+0.0.0.0/0        ISP Gateway         eth2
+"192.168.5.0/24 network'ü eth1 interface'ime bağlı. Paketi oraya yönlendireyim."
+
+5. Router'ın Paket Yeniden Hazırlama Süreci
+Router şimdi paketi 192.168.5.x ağına göndermek için yeniden hazırlıyor:
+IP paketi aynı kalıyor ama Ethernet frame değişiyor:
+Yeni Ethernet Frame:
+
+Src MAC: rr:rr:rr:rr:rr:r5 (Router'ın 192.168.5.x ağındaki interface MAC'i)
+Dest MAC: ??? (e4e4'ün MAC adresi gerekiyor!)
+
+Router şöyle düşünüyor: "192.168.5.10'un MAC adresini bilmiyorum. ARP yapmam lazım."
+
+6. Router'dan ARP Request (İkinci Ağda)
+Router 192.168.5.x ağına ARP request gönderiyor:
+ARP Broadcast (192.168.5.x ağında):
+
+Src MAC: rr:rr:rr:rr:rr:r5 (Router'ın 192.168.5.x interface MAC'i)
+Dest MAC: FF:FF:FF:FF:FF:FF (Broadcast)
+Message: "Kim 192.168.5.10? MAC adresiniz nedir?"
+
+Switch bu broadcast'i 192.168.5.x ağındaki tüm cihazlara gönderiyor.
+7. e4e4'ün ARP Reply'i
+e4e4 (192.168.5.10) cevap veriyor:
+"Ben 192.168.5.10'um! MAC adresim: e4:e4:e4:e4:e4:e4"
+Router bu bilgiyi ARP tablosuna kaydediyor:
+IP Address       MAC Address         Interface
+192.168.5.10     e4:e4:e4:e4:e4:e4   eth1
+
+8. Son Paket İletimi
+Artık router tüm bilgilere sahip. Paketi son şekliyle hazırlıyor:
+Final Ethernet Frame (192.168.5.x ağında):
+
+Src MAC: rr:rr:rr:rr:rr:r5 (Router'ın 192.168.5.x MAC'i)
+Dest MAC: e4:e4:e4:e4:e4:e4 (e4e4'ün MAC'i)
+
+IP Packet (Hiç değişmedi!):
+
+Src IP: 192.168.1.20 (Hala aynı!)
+Dest IP: 192.168.5.10 (Hala aynı!)
+
+TCP Segment:
+
+Data: "Merhaba e4e4!"
+
+e4e4 paketi alıyor ve "192.168.1.20'den bana mesaj gelmiş!" diyor.
+
+Hangi Protokoller Neden Kullanılıyor/Kullanılmıyor:
+
+KULLANILAN PROTOKOLLER:
+ARP (İki kez kullanıldı):
+
+İlk: b2b2 → router MAC adresini öğrenmek için (eğer bilmiyorsa)
+İkinci: Router → e4e4 MAC adresini öğrenmek için
+Neden: "Her ağda fiziksel adresleri bilmek gerekiyor"
+
+IP (Internet Protocol):
+
+Kaynak ve hedef IP hiç değişmedi
+Router sadece yönlendirdi
+Neden: "Farklı ağlar arası iletişimin temeli"
+
+Routing:
+
+Router routing table kullandı
+Hangi ağa nasıl gidileceğini belirledi
+Neden: "Farklı ağları birbirine bağlamak için"
+
+Ethernet (İki farklı ağda):
+
+Her ağda farklı MAC adresleri kullanıldı
+Frame header'ları değişti ama IP paketi aynı kaldı
+Neden: "Her fiziksel ağda yerel adresler gerekiyor"
+
+KULLANILMAYAN PROTOKOLLER:
+NAT (Network Address Translation):
+Kullanılmadı çünkü: "İki ağ da private (192.168.x.x) ve router sadece yönlendirdi, IP çevirmedi. NAT sadece private → public çevirimde kullanılır."
+DHCP:
+Kullanılmadı çünkü: "IP adresleri zaten mevcut ve sabit. Yeni IP atanması yok."
+DNS:
+Kullanılmadı çünkü: "Direkt IP adresi kullandık, isim çevirimi yok."
+
+Router'ın Detaylı Düşünce Süreci:
+Paket aldığında:
+"Bana gelen bu paket benim için mi?"
+
+Dest MAC benim → Evet, bana geldi
+Dest IP benim → Hayır, 192.168.5.10 for someone else
+
+"O zaman ben bu paketi yönlendirmeliyim."
+Routing kararı:
+"192.168.5.10 hangi ağda?"
+
+Routing table'a bak
+192.168.5.0/24 eth1 interface'imde
+Oraya yönlendir
+
+MAC adresi problemi:
+"eth1'den göndermek için e4e4'ün MAC adresini bilmem lazım"
+
+ARP table'a bak
+Yoksa ARP request gönder
+Cevap gelince paketi ilet
+
+Switch'lerin Rolü:
+192.168.1.x ağındaki switch:
+
+b2b2'den gelen paketi router'a iletti
+MAC learning yaptı
+
+192.168.5.x ağındaki switch:
+
+Router'dan gelen ARP broadcast'i herkese iletti
+e4e4'ün ARP reply'ini router'a iletti
+Son paketi e4e4'e iletti
+
+Özet - Ana Fark:
+Aynı ağda: Direkt iletişim (sadece ARP + Ethernet)
+Farklı ağda: Router devreye giriyor
+
+IP adresleri değişmiyor
+MAC adresleri her ağda değişiyor
+Router yönlendirme yapıyor
+İki kez ARP gerekiyor (her ağda bir)
+
+En önemli nokta: Router, IP paketini hiç değiştirmedi, sadece hangi ağa göndereceğini belirledi ve uygun MAC adresleriyle sardı.
