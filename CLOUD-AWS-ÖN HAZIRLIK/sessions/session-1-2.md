@@ -1,6 +1,7 @@
 
 # Cloud (Bulut) nedir?
-"Cloud" ya da Türkçesiyle "bulut", verilerin, yazılımların ve hizmetlerin internet üzerinden uzaktaki sunucularda barındırılması ve çalıştırılmasıdır. Kısaca, bilgisayarınıza yüklemeden uygulamalara erişebilir, dosyalarınızı saklayabilir, işlem gücü kullanabilirsiniz.
+"Cloud" ya da Türkçesiyle "bulut", verilerin, yazılımların ve hizmetlerin internet üzerinden uzaktaki sunucularda barındırılması ve çalıştırılmasıdır. 
+Kısaca, bilgisayarınıza yüklemeden uygulamalara erişebilir, dosyalarınızı saklayabilir, işlem gücü kullanabilirsiniz.
 
 Cloud Türleri
 Public Cloud (Genel Bulut): Amazon Web Services (AWS), Microsoft Azure, Google Cloud gibi herkesin kullanabileceği bulut altyapılarıdır.
@@ -54,6 +55,7 @@ Cloud Computing'in Açıklaması
 Cloud Computing (Bulut Bilişim), bilgisayar kaynaklarının internet üzerinden hizmet olarak sunulması modelidir. Bu kavramı daha detaylı açıklayalım:
 Temel Mantık: Geleneksel yaklaşımda yazılımları kendi bilgisayarımıza kurar, dosyalarımızı kendi diskimizde saklar ve işlemci gücümüzü kullanırız. Cloud computing'de ise bu kaynaklar uzak sunucularda bulunur ve internet üzerinden erişiriz.
 Nasıl Çalışır: Örneğin Google Drive kullandığınızda dosyalarınız Google'ın sunucularında saklanır. Microsoft Office 365 kullandığınızda Word ve Excel programları bulutta çalışır. Netflix izlediğinizde videolar bulut sunucularından akış halinde gelir.
+
 Ana Avantajları:
 
 Herhangi bir cihazdan erişim imkanı
@@ -117,6 +119,7 @@ Dinamik İçerik Üretme: PHP, Java, Python gibi programlama dilleri ile yazılm
 Güvenlik Sağlama: SSL/TLS şifreleme, kimlik doğrulama ve yetkilendirme işlemlerini yönetir.
 Yük Dengeleme: Çok sayıda kullanıcı isteğini farklı sunuculara dağıtarak performansı optimize eder.
 Günlük Tutma: Gelen istekleri, hataları ve sistem durumunu kayıt altına alır.
+
 Popüler Web Sunucuları
 
 Apache HTTP Server: En yaygın kullanılan açık kaynak web sunucusu
@@ -788,7 +791,7 @@ Trello, Notion
 Hazır uygulamayı kullanırım, hiçbir teknik işe karışmam.
 
 Günlük Hayattan Tatlı Bir Örnek:
-Haydi pizza üzerinden düşünelim 🍕
+Haydi pizza üzerinden düşünelim 
 
 Model	Kim ne yapar?
 IaaS	Hamuru, fırını sen alırsın. Pizzayı kendin yaparsın.
@@ -932,7 +935,7 @@ AWS’de de veritabanı var ama artık sunucusunu kurmaz, ayarlarla uğraşmazs�
 AWS senin için yönetir.
 AWS’de Kullanabileceğin Veritabanları
 AWS Servisi	Türü	Ne İçin Uygun?
-RDS	SQL (MySQL, PostgreSQL, Oracle, MariaDB, SQL Server)	Geleneksel Spring projeleri için ✅
+RDS	SQL (MySQL, PostgreSQL, Oracle, MariaDB, SQL Server)	Geleneksel Spring projeleri için 
 Aurora	SQL (PostgreSQL veya MySQL uyumlu)	Daha hızlı, daha dayanıklı RDS alternatifi
 DynamoDB	NoSQL (Key-Value & Document)	MongoDB veya Cassandra alternatifi
 DocumentDB	NoSQL (MongoDB uyumlu)	MongoDB gibi çalışır
@@ -1148,7 +1151,7 @@ Türkiye’de var mı?	 Evet, İstanbul’da Local Zone var
 # AWS Shared Responsibility Model Nedir?
 AWS ile müşteriler, cloud güvenliği konusunda sorumluluğu paylaşır.
 Bazı şeylerden AWS sorumludur, bazı şeylerden ise sen (müşteri/yazılımcı) sorumlusun.
- İki Temel Sorumluluk Alanı
+İki Temel Sorumluluk Alanı
 1. Security of the Cloud → AWS Sorumluluğunda
 Yani: “Cloud altyapısının güvenliği”
 AWS şunlardan sorumludur:

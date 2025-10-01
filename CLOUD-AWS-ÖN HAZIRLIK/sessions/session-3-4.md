@@ -103,3 +103,118 @@ Key pair'lar bölgeye özel
 Instance'lar bölgeye özel
 Security group'lar bölgeye özel
 AMI'ler bölgeye özel
+
+# En temel virtualization çeşitleri:
+
+Software Virtualization
+
+Server Virtualization
+
+Storage Virtualization
+
+Operating System Virtualization (OS V.)
+
+
+1. Software Virtualization
+
+Yazılımların, işletim sisteminden bağımsız çalışabilmesini sağlayan sanallaştırmadır.
+
+Yani bir uygulamayı sanki o işletim sistemine kurulmuş gibi çalıştırırsın ama aslında izole bir ortamda çalışır.
+
+Uygulama, kullandığı dosyaları ve ayarları işletim sisteminden ayrı görür.
+
+Örnekler:
+
+Wine (Linux’te Windows programlarını çalıştırmak için)
+
+VMware ThinApp veya Microsoft App-V
+
+Eğitim/deneme amaçlı programları ana bilgisayarına zarar vermeden çalıştırabilirsin.
+
+Ne işimize yarar?
+
+Eski programları yeni sistemlerde çalıştırmak
+
+Güvenlik: Ana işletim sistemini bozmaz
+
+Tek seferde yüzlerce kullanıcıya uygulama dağıtımı
+
+2. Server Virtualization
+
+Fiziksel bir sunucuyu sanal sunuculara bölmektir.
+
+Burada Hypervisor adı verilen bir yazılım kullanılır (VMware ESXi, KVM, Hyper-V gibi).
+
+Tek fiziksel makinede onlarca sanal makine (VM) çalıştırabilirsin.
+
+Her VM bağımsızdır, kendi işletim sistemini (Windows/Linux) kurabilirsin.
+
+Örnekler:
+
+VMware vSphere, Microsoft Hyper-V, Oracle VM, AWS EC2
+
+Ne işimize yarar?
+
+Donanım verimliliği: Tek bir güçlü sunucu, 10 farklı küçük sunucu gibi kullanılabilir
+
+Test ortamları oluşturmak kolay
+
+Yedekleme ve failover (çökünce başka sunucuya geçiş) kolaydır
+
+3. Storage Virtualization
+
+Birden fazla fiziksel depolama aygıtını tek bir depolama havuzu (pool) gibi gösterir.
+
+Kullanıcıya tek bir büyük disk gibi görünür, ama aslında arka planda onlarca farklı disk olabilir.
+
+Diskler farklı yerlerde olsa bile (RAID, SAN, NAS) hepsi tek yerden yönetilir.
+
+Örnekler:
+
+RAID sistemleri (birden fazla disk, tek sürücü gibi)
+
+SAN (Storage Area Network)
+
+AWS EBS (Elastic Block Store)
+
+Ne işimize yarar?
+
+Depolamayı büyütmek/küçültmek kolay
+
+Veriler daha güvenli ve hızlı erişilebilir
+
+Donanımın nerede olduğunu bilmeden tek bir sistemden yönetebilirsin
+
+4. Operating System Virtualization (OS Virtualization)
+
+Aynı işletim sistemi çekirdeği üzerinde birden fazla izole ortam çalıştırmaktır.
+
+Burada VM’deki gibi her seferinde yeni işletim sistemi kurulmaz.
+
+Daha hafif, daha hızlıdır.
+
+Container teknolojisi bu mantıkla çalışır.
+
+Örnekler:
+
+Docker, Kubernetes, LXC (Linux Containers)
+
+Ne işimize yarar?
+
+Mikroservis mimarisi için idealdir
+
+Çok hızlı başlar (VM’den saniyelerce daha hızlı)
+
+Daha az kaynak tüketir
+
+“Aynı bilgisayarda farklı uygulamaları izole etmek” için kullanılır
+
+ÖZET (basitleştirilmiş):
+
+Software Virtualization → Tek tek uygulamaları izole çalıştırma.
+
+Server Virtualization → Tek sunucuyu onlarca sanal sunucuya bölme.
+
+Storage Virtualization → Birden fazla fiziksel diski tek bir sanal disk gibi kullanma.
+
+OS Virtualization → Aynı işletim sistemi üzerinde container tabanlı izolasyon.

@@ -251,6 +251,136 @@ ADD R0, R0, #10
 
 İkisi aynı işi yapıyor (5 + 10), ama komut adları ve yazım tamamen farklı.
 
+# 1. Assembly → Makine Kodu İlişkisi
+
+Bilgisayar donanımı sadece makine kodunu (binary, 0 ve 1) anlayabilir.
+
+Assembly dediğimiz şey makine kodunun insana okunabilir hali (ör. MOV AX, 1 gibi).
+
+Yani son aşamada her şey makine koduna çevrilmek zorunda.
+
+Ama her dil önce assembly’ye çevrilmek zorunda değildir.
+
+🔹 2. Dillerin Derlenme / Çalışma Yöntemleri
+C / C++ (Derlenen diller)
+
+C kodu → derleyici → Assembly → Makine kodu (binary, .exe).
+
+Sonuçta senin bilgisayarın işlemcisine özel bir dosya oluşur.
+
+Dolayısıyla derlenmiş diller genellikle assembly aşamasından geçer (derleyici arkada assembly üretebilir veya direkt binary üretebilir).
+
+Java, C#, Python (Ara katmanlı veya yorumlanan diller)
+
+Java:
+
+Java kodu → Bytecode (platformdan bağımsız ara kod).
+
+JVM (Java Virtual Machine) bunu alır, çalıştırırken ya yorumlar ya da JIT Compiler ile anında makine koduna çevirir.
+
+Yani Java her platformda aynı bytecode ile çalışır, assembly’ye senin gözünden çevrilmez.
+
+Python:
+
+Python kodu → Bytecode (.pyc) → Python yorumlayıcısı (CPython) bunu satır satır çalıştırır.
+
+Yine en sonda CPU’ya makine kodu gider ama doğrudan assembly yazılmaz.
+
+C# (.NET):
+
+C# → IL (Intermediate Language) → CLR (Common Language Runtime) → JIT Compiler → Makine kodu.
+
+Yorumlanan Diller (JavaScript, PHP gibi)
+
+Kaynak kod → Direkt yorumlayıcı (interpreter) → Çalışma anında satır satır makine koduna çevirilir.
+
+Assembly dosyası oluşturulmaz.
+
+🔹 3. Sonuç
+
+Her şey en sonunda makine koduna dönüşür (aksi mümkün değil).
+
+Ama her dil önce assembly’ye dönüşmez:
+
+C/C++ gibi diller çoğunlukla assembly üzerinden gider.
+
+Java, Python, C# gibi diller genellikle bytecode → JIT → makine koduna gider.
+
+JavaScript, PHP gibi diller doğrudan yorumlanır.
+
+Kısacası:
+
+C/C++ → Derlenmiş assembly + binary.
+
+Java/C# → Bytecode → JVM/CLR → JIT compiler ile makine kodu.
+
+Python/JS → Bytecode veya direkt yorum → makine kodu.
+
+# Dillerin Genel Ayrımı
+
+Evet, diller genellikle üç ana kategoriye ayrılır:
+
+🔹 Derlenen diller (Compiled languages)
+
+Kod → Derleyici (compiler) → Makine kodu (binary).
+
+Örn: C, C++, Go, Rust
+
+Çok hızlı çalışırlar çünkü direkt işlemciye özel makine kodu üretilir.
+
+🔹 Yorumlanan diller (Interpreted languages)
+
+Kod → Yorumlayıcı (interpreter) → Satır satır çalıştırılır.
+
+Örn: Python, JavaScript, PHP
+
+Yavaş olabilir çünkü her satırda çeviri yapılır.
+
+🔹 Ara katmanlı (Intermediate / VM-based languages)
+
+Kod → Bytecode (platformdan bağımsız ara kod) → Sanal Makine (JVM, CLR) → Makine kodu.
+
+Örn: Java, C#, Kotlin
+
+Hem taşınabilirlik sağlar hem de JIT (Just-in-Time Compiler) sayesinde hız kazanır.
+
+2. Neden ara katman var?
+
+Ara katman (bytecode) kullanılmasının birkaç sebebi var:
+
+Taşınabilirlik:
+Java’nın sloganı: “Write once, run anywhere”.
+(Bir kere yaz, her yerde çalıştır.)
+→ Çünkü bytecode her cihazda aynı, sadece JVM farklı.
+
+Güvenlik:
+JVM/CLR kodu kontrol eder (hafıza taşmaları, tehlikeli işlemler).
+Bu yüzden Java, C# genelde daha güvenlidir.
+
+Performans optimizasyonu:
+JIT Compiler çalışma anında kodu makine koduna çevirir, o anki cihazın işlemcisine özel hızlandırmalar yapar.
+
+3. Neden direkt makine diline çevrilmiyor?
+
+Platform bağımlılığı:
+C++ derlersen, Windows için ayrı, Linux için ayrı, ARM için ayrı binary çıkarman gerekir.
+Java’da buna gerek yok → bytecode her yerde aynı.
+
+Esneklik:
+Yorumlanan veya ara katmanlı dillerde programı çalışırken değiştirmek, hata ayıklamak daha kolay.
+
+Ek güvenlik katmanı:
+Direkt makine kodu CPU’ya emir verir, yanlışsa sistemi bozabilir.
+JVM/CLR gibi sanal makineler bu riskleri azaltır.
+
+Özet:
+
+Derlenen = hızlı ama platforma bağımlı.
+
+Yorumlanan = yavaş ama esnek.
+
+Ara katmanlı = ikisinin ortası (hem taşınabilir hem optimize edilebilir).
+
 # A sınıfı IP adresi ile ilgili her maddeyi tek tek açıklayayım:
 
 🔹 1) “A Sınıfı Ağ adresi 1 bayt uzunluğundadır, ilk bit her zaman 0'dır”
@@ -487,17 +617,19 @@ javaRFC 1918 Tanımlı Private IP Aralıkları:
 │ Class C  │ 192.168.0.0 -          │ 192.168.0.0/16 │ 65,536       │
 │          │ 192.168.255.255        │                │              │
 └──────────┴────────────────────────┴────────────────┴──────────────┘
+
 Neden Private IP Kullanılır?
 1. IPv4 Adres Tükenmesi Problemi:
-javaIPv4 Toplam Adres: 2^32 = 4,294,967,296 adres
+IPv4 Toplam Adres: 2^32 = 4,294,967,296 adres
 Dünya Nüfusu: ~8 milyar insan
 IoT Cihazlar: Milyarlarca
 
 Problem: Her cihaza public IP vermek imkansız!
 
 Çözüm: Private IP + NAT
+
 2. Güvenlik:
-javaPublic IP (88.245.22.19):
+Public IP (88.245.22.19):
 - İnternet'ten direkt erişilebilir
 - Hack denemeleri
 - Port taramaları
@@ -507,8 +639,9 @@ Private IP (192.168.1.100):
 - İnternet'ten direkt erişilemez
 - Modem/Firewall arkasında korumalı
 - Dış dünya bu IP'yi göremez
+
 3. Maliyet:
-javaPublic IP:
+Public IP:
 - ISP'den kiralanır
 - Aylık ücret
 - Her cihaz için ayrı maliyet
@@ -517,9 +650,10 @@ Private IP:
 - Ücretsiz
 - İstediğin kadar kullan
 - Sadece bir public IP yeter
+
 Gerçek Hayat Senaryosu:
 Ev Ağı Örneği:
-javaİNTERNET (Public)
+İNTERNET (Public)
     │
     │ Public IP: 88.245.22.19
     ▼
@@ -535,8 +669,9 @@ javaİNTERNET (Public)
     └── 192.168.1.50  (Akıllı Buzdolabı)
 
 Tek public IP (88.245.22.19) → 5 cihaz çalışıyor!
+
 Şirket Ağı Örneği:
-javaŞİRKET AĞI:
+ŞİRKET AĞI:
 10.0.0.0/8 → Ana network
 ├── 10.1.0.0/16 → İstanbul Ofisi (500 çalışan)
 ├── 10.2.0.0/16 → Ankara Ofisi (300 çalışan)
@@ -546,7 +681,7 @@ Her ofis kendi private ağında çalışıyor
 Dışarıya tek public IP ile çıkıyorlar
 NAT (Network Address Translation) ile Çalışma:
 Private → Public Dönüşümü:
-javaİç Ağdan İnternet'e:
+İç Ağdan İnternet'e:
 ┌─────────────────────────────────────────────────────────┐
 │ Private Network              NAT              Internet  │
 ├─────────────────────────────────────────────────────────┤
@@ -586,8 +721,9 @@ java1. IPv4 Adres Tasarrufu:
 4. Maliyet:
    - Ücretsiz
    - Sınırsız kullanım
+
 Dezavantajları:
-java1. Direkt İnternet Erişimi Yok:
+1. Direkt İnternet Erişimi Yok:
    - NAT gerekli
    - Router şart
 
@@ -597,9 +733,10 @@ java1. Direkt İnternet Erişimi Yok:
 
 3. Server Hosting Zorluğu:
    - Dışarıdan erişilecek server için port açmak lazım
+
 Hangi IP Aralığı Ne Zaman Kullanılır?
 10.0.0.0/8 - Büyük Organizasyonlar:
-java// Çok sayıda cihaz/subnet gerektiğinde
+Çok sayıda cihaz/subnet gerektiğinde
 Büyük şirketler, üniversiteler, veri merkezleri
 
 Örnek:
@@ -698,6 +835,7 @@ Sen paketi modemine yollarsın → modem “Routing Table”a bakar → “Bu IP
 ISP’nin router’ları da aynı şekilde bakarak en iyi yolu seçer.
 
 🔹 Routing Türleri
+
 1. Statik Routing
 
 Yönetici, yönlendirme tablosuna elle yollar yazar.
