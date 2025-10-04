@@ -379,7 +379,7 @@ Eğer sürekli compute ihtiyacın varsa (7/24 çalışan uygulamalar) ve esnekli
 
 Eğer sabit bir instance family + region’da kalacaksan → EC2 Instance Savings Plan daha ucuzdur.
 
-# AWS, farklı kullanım senaryoları için EC2 instance tiplerini ailere (families) ayırıyor. Bunlardan en temel olanı General Purpose.
+# AWS, farklı kullanım senaryoları için EC2 instance tiplerini ailere (families) ayırıyor:
 
 # General Purpose Instances Nedir?
 
@@ -611,7 +611,7 @@ Programların ve hesaplamaların yürütüldüğü birim.
 
 Cores (çekirdek sayısı): Paralel işlem yapabilme kapasitesi. Örn: 4 core → 4 işlem aynı anda çalışabilir.
 
-Clock speed (GHz): Çekirdeğin saniyede kaç işlem yaptığı. Daha yüksek → daha hızlı işlem.
+Clock speed (GHz): Çekirdeğin saniyede kaç işlem yaptığı. Daha yüksek → daha hızlı işlem.                        nnh
 
 Threads (iş parçacığı): Modern CPU’lar her çekirdeği birden fazla thread ile çalıştırabilir (Hyper-Threading).
 
@@ -681,7 +681,7 @@ Video streaming → yüksek network I/O
 
 Özet: I/O → CPU ve RAM’in veri ile etkileşim hızını belirler.
 
-# memory ile storage farkı nedir:
+# memory ile storage farkı nedir?
 
 1️⃣ Memory Optimized Instances
 
@@ -720,6 +720,126 @@ Hadoop/Spark cluster node’ları
 Data warehousing
 
 Öz: Disk I/O kritik, RAM ikinci planda.
+
+# Accelerated Computing Nedir?
+
+Normal CPU’nun tek başına yeterli olmadığı, yüksek işlem gücü isteyen işlerde kullanılan EC2 instance tipidir.
+
+Bu tip instance’lar, özel donanım hızlandırıcılar (GPU, FPGA, özel çipler) içerir.
+
+Amaç: CPU’yu destekleyerek çok daha yüksek hızda hesaplama yapmak.
+
+🔹 Hangi Donanımlar Kullanılır?
+
+GPU (Graphics Processing Unit)
+
+Yüksek paralel işlem gücü sağlar.
+
+Özellikle:
+
+Yapay Zeka (AI) ve Makine Öğrenimi (ML)
+
+Derin öğrenme (Deep Learning)
+
+3D rendering, video işleme
+
+FPGA (Field Programmable Gate Array)
+
+Donanımın programlanabilir versiyonu.
+
+Özel algoritmaları donanım seviyesinde hızlandırır.
+
+Özellikle:
+
+Kriptografi
+
+Finansal hesaplamalar
+
+Gerçek zamanlı veri işleme
+
+AWS Inferentia & Trainium (özel çipler)
+
+AWS’nin AI/ML için geliştirdiği özel işlemciler.
+
+Inferentia → inference (tahmin) için
+
+Trainium → model eğitimi için
+
+🔹 AWS Accelerated Computing Instance Aileleri
+
+P family → GPU yoğun (AI/ML training, HPC)
+
+G family → Graphics yoğun (gaming, 3D rendering, streaming)
+
+F family → FPGA tabanlı (özel hızlandırıcı algoritmalar)
+
+Inf/Trn family → AWS’nin AI çipleri (ML inference/training)
+
+🔹 Ne Zaman Kullanılır?
+
+AI/ML model eğitimi ve tahmini (TensorFlow, PyTorch, HuggingFace modelleri)
+
+HPC (High Performance Computing) → bilimsel hesaplamalar
+
+3D grafik işleme (CAD, animasyon, oyun)
+
+Video encoding/decoding (canlı yayın, rendering)
+
+Finansal analiz, risk modelleme (yüksek işlem gücü gerektiren algoritmalar)
+
+🔹 Özet
+
+Accelerated Computing = CPU + GPU/FPGA/özel çip kombinasyonu
+
+Avantaj: Paralel ve yoğun hesaplama işlerini CPU’dan çok daha hızlı yapar.
+
+Kullanım alanı: AI, ML, Deep Learning, HPC, 3D rendering, video işleme
+
+# Ama zaten comput işlemci yoğun değil miydi neden accelarete ihtiyaç duyulmuş?
+
+🔹 CPU (Compute Optimized)
+
+CPU çok genel amaçlı bir işlemcidir.
+
+Tekrarlayan, sıradan, farklı türden işlemleri yapmada iyidir (ör. web server, API, veri tabanı işlemleri).
+
+Ancak bazı işler vardır ki çok büyük veri üzerinde aynı tür hesaplamanın milyonlarca kez yapılmasını gerektirir.
+
+Örnekler:
+
+Makine Öğrenmesi / Yapay Zekâ eğitimi (milyonlarca matris çarpımı)
+
+Video işleme / render (piksel piksel aynı hesaplama)
+
+Bilimsel simülasyonlar (iklim, molekül modelleme)
+
+Kripto / hash işlemleri
+
+Bu tür işlerde CPU göreceli olarak yavaştır çünkü çekirdek sayısı sınırlı ve her çekirdek çok genel iş yapmak için tasarlanmıştır.
+
+🔹 GPU (Accelerated Computing)
+
+GPU’lar (Graphics Processing Unit), CPU’ya kıyasla binlerce küçük çekirdeğe sahiptir.
+
+Aynı işlemi paralel olarak çok hızlı yapabilir.
+
+Örneğin bir GPU, 5000 matris çarpımını aynı anda yapabilirken CPU bunları sırayla işler.
+
+Yani:
+
+CPU → "çok iş yapabilen ama aynı anda az kişiye hizmet veren ofis çalışanı"
+
+GPU → "aynı anda binlerce küçük işçi çalıştırabilen fabrika"
+
+🔹 Neden “Accelerated Computing” Kategorisi Açılmış?
+
+Çünkü:
+
+Her iş GPU’ya uygun değildir. Web server, API, veritabanı → CPU yeterli.
+
+Ama AI, Machine Learning, Big Data Analytics gibi işler → GPU veya FPGA (donanım hızlandırıcı) şarttır.
+
+AWS ve diğer bulut sağlayıcılar bu yüzden “Accelerated Computing” diye ayrı bir kategori açtı. Çünkü buradaki donanım (GPU, FPGA, TPU) CPU’dan çok farklı ve özel kullanım senaryoları var.
 
 # Web Server Nedir?
 
@@ -815,3 +935,108 @@ Dinamik Web Server → veritabanı + backend ile çalışan siteler
 Yazılım örnekleri: Apache, Nginx, IIS
 
 Kullanım alanları: web siteleri, API servisleri, dosya paylaşımı
+
+# /var/www/html genelde web sunucusunun (Apache, Nginx vs.) default document root dizinidir.
+
+Linux’ta web servisleri (Apache, Nginx) dosyaları “document root” denilen bir dizinden yayınlar.
+
+Çoğu dağıtımda bu dizin:
+
+/var/www/html
+
+olarak ayarlanmıştır.
+
+Buraya koyduğun dosyalar HTTP üzerinden erişilebilir olur.
+Örn.:
+
+/var/www/html/index.html dosyası varsa ve sunucunun IP’si 54.90.151.48 ise:
+http://54.90.151.48/index.html
+
+şeklinde tarayıcıdan görebilirsin.
+
+Apache veya Nginx konfigürasyon dosyasında bu yol değiştirilebilir.
+
+Apache: /etc/httpd/conf/httpd.conf (CentOS/RedHat) veya /etc/apache2/sites-available/000-default.conf (Ubuntu/Debian)
+
+Nginx: /etc/nginx/sites-available/default
+
+Örnek Senaryo
+
+Sunucunda Apache kuruluysa:
+
+sudo yum install httpd -y   # CentOS/RedHat
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+
+Sonra /var/www/html/ içine basit bir dosya oluştur:
+
+echo "Merhaba Linux Web Sunucusu!" | sudo tee /var/www/html/index.html
+
+
+Tarayıcıdan:
+
+http://<public-ip>/
+
+
+adresine gittiğinde bu yazıyı görürsün.
+
+Best Practice
+
+/var/www/html sadece test veya basit siteler için uygundur.
+
+Profesyonel projelerde genelde:
+
+Her site için ayrı dizin açılır (/var/www/site1, /var/www/site2)
+
+Her site için ayrı virtual host (Apache) veya server block (Nginx) tanımlanır.
+
+Dosyaları root değil, özel bir kullanıcı (örn. www-data) yönetmeli, güvenlik için.
+
+# AWS’de stateless kavramı sık sık geçiyor ama birkaç farklı bağlamda kullanılıyor. Hemen detaylı anlatayım:
+
+🔹 1. AWS’de “Stateless” Kavramı
+
+Stateless, en basit haliyle oturum bilgisinin (state) bir sunucu üzerinde tutulmaması demektir.
+
+Bir istek (request) geldiğinde, o isteğin cevaplanması için önceki isteklerle ilgili bilgiye ihtiyaç duyulmaz.
+
+Yani her istek bağımsızdır.
+
+Stateful sistemlerde ise önceki isteklerden gelen bilgiler tutulur (örneğin bir web oturumu, alışveriş sepeti).
+
+AWS’de stateless örnekleri:
+
+Security Groups: Inbound (gelen) ve Outbound (giden) kurallarını ayrı yazmazsın. Bir yönde izin verdiğinde cevap trafiği otomatik izinlidir → yani “stateful” çalışır.
+
+Network ACL (NACL): Hem inbound hem outbound için ayrı kurallar yazarsın. Trafiğin dönüşüne otomatik izin verilmez. Yani tamamen bağımsızdır → bu yüzden stateless çalışır.
+
+Kısacası: SG → stateful, NACL → stateless
+
+🔹 2. Inbound / Outbound ile Stateless İlişkisi
+
+Security Group (SG)
+
+Örneğin inbound’da port 80 (HTTP) açarsan, dışarıya doğru outbound kuralı yazmana gerek yoktur. Çünkü SG stateful’dur → dönüş trafiğine otomatik izin verilir.
+
+NACL (Network ACL)
+
+Örneğin inbound’da port 80 açtığında, outbound’da da ephemeral port (1024–65535) aralığını açman gerekir. Çünkü NACL stateless’tir → gelen ve giden trafik bağımsızdır.
+
+🔹 3. Uygulama Tarafında Stateless
+
+AWS’de sadece network değil, uygulama mimarisi tarafında da stateless önemlidir.
+
+Örneğin Elastic Load Balancing (ELB) kullanıyorsan, backend instance’ların stateless olması tavsiye edilir. Çünkü bir request farklı instance’a yönlendirilebilir. Eğer session bilgisini instance içinde tutarsan, diğer instance’lar o bilgiden habersiz olur.
+
+Çözüm: Session bilgisini DynamoDB, ElastiCache (Redis), S3 gibi merkezi bir depoda tutarsın → application stateless olur.
+
+Özet:
+
+AWS’de Network ACL = Stateless, Security Group = Stateful
+
+Inbound / outbound bağımsızlığı NACL’de vardır çünkü stateless’tir.
+
+SG’de inbound izni verildiğinde outbound dönüşe otomatik izin çıkar çünkü stateful’dur.
+
+Uygulama mimarisinde de “stateless” çok önemlidir → özellikle load balancing, auto scaling gibi yapılarda session bilgisini merkezi depoya taşımak gerekir.
