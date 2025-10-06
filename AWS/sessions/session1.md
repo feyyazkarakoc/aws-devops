@@ -1040,3 +1040,64 @@ Inbound / outbound bağımsızlığı NACL’de vardır çünkü stateless’tir
 SG’de inbound izni verildiğinde outbound dönüşe otomatik izin çıkar çünkü stateful’dur.
 
 Uygulama mimarisinde de “stateless” çok önemlidir → özellikle load balancing, auto scaling gibi yapılarda session bilgisini merkezi depoya taşımak gerekir.
+
+# Bu komut AWS EC2 üzerindeki bir web sunucusuna HTTP isteği (request) göndermek için kullanılır.
+curl http://ec2-3-15-183-78.us-east-2.compute.amazonaws.com
+
+1️⃣ curl nedir?
+
+curl (“client URL”) bir komut satırı aracıdır.
+Bir URL’ye (örneğin bir web sitesi veya API adresi) istek (request) gönderip cevabı terminalde gösterir.
+
+2️⃣ Bu örnekte ne oluyor?
+curl http://ec2-3-15-183-78.us-east-2.compute.amazonaws.com
+
+Bu komut:
+
+AWS’de us-east-2 (Ohio) bölgesinde çalışan
+
+IP adresi: 3.15.183.78 olan
+
+EC2 instance’a, HTTP (port 80) üzerinden istek yollar.
+Yani web tarayıcısında şu adrese gitmekle aynı şeydir:
+
+http://ec2-3-15-183-78.us-east-2.compute.amazonaws.com
+
+3️⃣ Dönüşte ne olur?
+
+Eğer bu EC2 üzerinde bir web server (örneğin Apache, Nginx, Tomcat) çalışıyorsa, sana HTML cevabı döner.
+
+Eğer hiçbir web servisi yoksa, genellikle hata alırsın:
+
+curl: (7) Failed to connect to ... port 80: Connection refused
+
+veya
+
+curl: (28) Connection timed out
+
+4️⃣ curl Ne İçin Kullanılır?
+
+AWS’de EC2, Load Balancer, API Gateway, S3 URL gibi servisleri test etmek için.
+
+Uygulamanın dışarıdan erişilebilir olup olmadığını görmek için.
+
+Web servislerinin (REST API’lerin) yanıtlarını test etmek için.
+
+🔹 Örnekler:
+EC2 web server’ı test et
+curl http://ec2-3-15-183-78.us-east-2.compute.amazonaws.com
+
+HTTPS portunu test et
+curl https://example.com
+
+Yalnızca HTTP başlıklarını gör
+curl -I http://ec2-3-15-183-78.us-east-2.compute.amazonaws.com
+
+JSON API’ye GET isteği gönder
+curl https://api.example.com/users
+
+
+Özetle:
+curl http://ec2-3-15-183-78.us-east-2.compute.amazonaws.com komutu,
+EC2’de çalışan web sunucusuna HTTP isteği atar ve cevabı terminalde gösterir.
+Bu sayede EC2’nün doğru çalışıp çalışmadığını test edebilirsin.
