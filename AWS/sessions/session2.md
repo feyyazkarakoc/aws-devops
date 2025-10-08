@@ -68,6 +68,7 @@ EC2, Lambda, ECS gibi servisler için idealdir.
 Role Adı	Policy
 EC2-S3-Access	S3FullAccess
 Lambda-DynamoDB-Role	DynamoDBWriteAccess
+
 4. Policy (Yetki Belgesi)
 
 Policy = “Bu kişi ne yapabilir, ne yapamaz?”ı belirleyen JSON belgesi.
