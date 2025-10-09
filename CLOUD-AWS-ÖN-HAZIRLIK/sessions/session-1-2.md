@@ -448,7 +448,7 @@ Verilerin farklı ülke sunucularında tutulması, bazı ülkelerde yasal sorunl
 Örnek: Avrupa'daki bir müşterinin verisini ABD'de tutmak yasal olmayabilir.
 7. Yedekleme ve Kurtarma Karmaşık Olabilir
 Cloud servisleri yedekleme imkanı sunsa da, doğru yapılandırılmazsa felaket anında geri dönüş zorlaşabilir.
-Snapshot, versioning, lifecycle policy gibi özellikler manüel ayar gerektirir.
+54415, versioning, lifecycle policy gibi özellikler manüel ayar gerektirir.
 
 Özet Tablo:
 Dezavantaj	Açıklama

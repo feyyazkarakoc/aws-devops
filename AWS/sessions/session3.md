@@ -1,4 +1,5 @@
 # proxy server ve reverse proxy nedir? 
+
 1️⃣ Proxy Server (İleri Proxy)
 
 Proxy server, istemci (client) ile internet arasına giren aracı sunucudur.
@@ -65,7 +66,7 @@ URL veya hostname’e göre farklı backend sunucularına yönlendirme yapar.
 
 Kullanılan Reverse Proxy Yazılımları:
 
-NGINX 🏆 (en yaygın ve güçlü reverse proxy)
+NGINX (en yaygın ve güçlü reverse proxy)
 
 HAProxy (yük dengeleyici olarak mükemmel)
 
@@ -134,7 +135,7 @@ Ya da AWS Application Load Balancer (ALB) kullanırsın → o da bir reverse pro
 
 Kullanıcı → NGINX (reverse proxy) → Spring Boot uygulaması (Tomcat)
 
-İkisi aynı anda çalışabilir mi?
+# İkisi aynı anda çalışabilir mi?
 
 Evet ama farklı seviyelerde.
 
@@ -155,7 +156,7 @@ Reverse Proxy: İnternetten gelen trafiği yönetir.
 
 Ama bu ikisi aynı sistemde genelde olmaz, farklı noktalarda olur.
 
-Her site/uygulama/mobil uygulamada var mı?
+# Her site/uygulama/mobil uygulamada var mı?
 
 Cevap: Hayır, her zaman yok.
 Ama büyük ölçekli olanların neredeyse hepsinde reverse proxy vardır.
@@ -174,6 +175,7 @@ Medium, GitHub → CDN + reverse proxy yapısı
 Mobil uygulamalar:
 
 Mobil uygulama API çağrıları da genelde reverse proxy üzerinden geçer.
+
 Örneğin:
 
 api.spotify.com çağrısı → reverse proxy → gerçek mikroservisler
@@ -254,7 +256,6 @@ Spring Boot veya Node.js uygulaman çalışıyor → NGINX onu dış dünyaya a�
 
 User → NGINX (port 80) → Backend (port 8080)
 
-
 Reverse Proxy ve Load Balancing:
 Trafiği birden fazla backend instance’a yönlendirir.
 
@@ -268,7 +269,7 @@ NGINX genellikle “ingress controller” olarak görev yapar.
 5️⃣ AWS Üzerinde NGINX Kurulumu
 
 AWS’de NGINX genellikle bir EC2 instance üzerinde kurulur.
-Adım adım anlatayım 👇
+Adım adım anlatayım 
 
 Adım 1: EC2 Oluştur
 
@@ -302,7 +303,7 @@ http://<ec2-public-dns>
 6️⃣ Reverse Proxy Örneği (Spring Boot ile)
 
 Spring Boot uygulaman EC2’de localhost:8080’de çalışıyor diyelim.
-NGINX’in konfigürasyonunu şöyle yaparsın 👇
+NGINX’in konfigürasyonunu şöyle yaparsın
 
 Dosya: /etc/nginx/sites-available/default
 
