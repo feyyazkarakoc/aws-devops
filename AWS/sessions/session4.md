@@ -1,4 +1,4 @@
-# İmaj nedir, ami nedir, bileşenleri nelerdir, neden kullanıllır, nerde kullanılır, amazon 2 de ami nasıldı?
+# İmaj nedir, ami nedir, bileşenleri nelerdir, neden kullanıllır, nerde kullanılır, amazon 2'de ami nasıldı?
 1️⃣ “İmaj (Image)” nedir?
 
 Genel anlamda imaj, bir sistemin birebir kopyasıdır —
@@ -28,6 +28,8 @@ Bileşen	Açıklama
 1️⃣ Root Volume (Root Device Template)	İşletim sistemi, uygulamalar, konfigürasyonlar, yani diskin asıl içeriği. (örneğin Linux, Apache, Java yüklü olabilir)
 2️⃣ Launch Permissions	Bu AMI’yi kimlerin kullanabileceğini belirler. (örneğin sadece sana açık olabilir veya public olabilir)
 3️⃣ Block Device Mapping	EC2 instance’ına bağlanacak ek disklerin (EBS volume’ların) nasıl monte edileceğini gösterir.
+
+
 🔹 AMI türleri:
 
 Public AMIs:
@@ -129,7 +131,7 @@ CI/CD pipeline	Build sonrası custom AMI üretip deployment’a geçiş
 
 AWS Snapshot, bir EBS (Elastic Block Store) disk’inin tam yedeğidir (backup).
 
-Snapshot = EBS diskinin belirli bir andaki durumunun (state) fotoğrafı 📸
+Snapshot = EBS diskinin belirli bir andaki durumunun (state) fotoğrafı
 
 Yani senin EC2 instance’ındaki disk (örneğin /dev/xvda) o anda hangi dosyalara sahipse, snapshot bunu kaydeder.
 
@@ -216,6 +218,7 @@ Region bağımlı	Snapshot’lar alındığı region’a bağlıdır (isteğe ba
 Paylaşılabilir	Snapshot private, public veya belirli hesaplarla paylaşılabilir
 Şifrelenebilir	Snapshot’lar AES-256 ile şifrelenebilir
 Otomatik alınabilir	Data Lifecycle Manager (DLM) veya Backup service ile planlı otomatik snapshot alınabilir
+
 8️⃣ Örnek senaryolar
 Senaryo	Snapshot Kullanımı
 Günlük yedekleme	Her gece EBS snapshot alınır
@@ -223,12 +226,14 @@ Migration (taşıma)	Snapshot başka region’a kopyalanır, orada volume oluşt
 Disaster Recovery (felaket kurtarma)	Snapshot’tan yeni EC2 başlatılır
 AMI oluşturma	EC2 imajı alınırken AWS snapshot oluşturur
 Veri kurtarma	Eski snapshot’tan volume oluşturulup dosyalar alınır
+
 9️⃣ Özet tablo
 Kavram	Anlamı	Kullanım amacı
 Volume	EC2’nin bağlı olduğu sanal disk	Aktif veri depolama
 Snapshot	Volume’un yedeği	Yedekleme / restore / çoğaltma
 AMI	EC2’nin tam sistem imajı	Yeni EC2 oluşturma, klonlama
 AMI ↔ Snapshot	AMI içinde snapshot’lar bulunur	Snapshot = AMI’nin temeli
+
 1️0️⃣ Gerçek hayattan örnek
 
 Diyelim ki bir EC2 web sunucun var: /var/www/html altında bir web sitesi çalışıyor.

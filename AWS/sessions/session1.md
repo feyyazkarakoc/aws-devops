@@ -1101,3 +1101,82 @@ curl https://api.example.com/users
 curl http://ec2-3-15-183-78.us-east-2.compute.amazonaws.com komutu,
 EC2’de çalışan web sunucusuna HTTP isteği atar ve cevabı terminalde gösterir.
 Bu sayede EC2’nün doğru çalışıp çalışmadığını test edebilirsin.
+
+# “0.0.0.0/0” konusu IP ve ağ güvenliği açısından çok önemli bir kavramdır, adım adım ve sade biçimde anlatalım 
+
+1️⃣ “0.0.0.0” nedir?
+
+0.0.0.0 özel bir IP adresidir, ve gerçek bir cihaza ait değildir.
+Genellikle “herhangi bir adres” veya “tüm adresleri kapsayan” anlamında kullanılır.
+
+Yani:
+
+“0.0.0.0” = “her yerden” ya da “tüm IP’ler”.
+
+2️⃣ “/0” ne demek?
+
+“/0” = hiç ağ biti yok anlamına gelir.
+Yani hiçbir kısmı sabit değildir → tüm IPv4 adreslerini kapsar.
+
+Matematiksel olarak:
+
+/8 → 16 milyon adres
+
+/16 → 65.000 adres
+
+/24 → 256 adres
+
+/0 → 4 milyar (tüm IPv4 adresleri)
+
+3️⃣ “0.0.0.0/0” ne anlama gelir?
+
+Tüm IPv4 internetini temsil eder.
+
+Başka bir deyişle:
+
+“Kim olursa olsun, hangi IP’den gelirse gelsin”
+
+“Her yerden gelen trafiğe izin ver” anlamına gelir.
+
+4️⃣ Güvenlik Gruplarında (AWS, Firewall vb.) kullanımı
+🔹 Örnek:
+
+Security Group’ta şöyle bir inbound kural varsa:
+
+Type: SSH
+Port: 22
+Source: 0.0.0.0/0
+
+
+Bu demektir ki:
+
+“Bütün dünyadan gelen herkes bu EC2’ye SSH (22) portundan bağlanabilir.”
+
+Bu güvenlik açısından tehlikelidir.
+Sadece senin IP adresine izin vermek çok daha güvenlidir.
+Örn:
+
+Source: 88.245.22.19/32
+
+
+Bu durumda sadece senin bilgisayarın bağlanabilir.
+
+5️⃣ Diğer Kullanım Alanları
+Kullanım Alanı	Anlamı
+Routing Table	“Varsayılan rota” (default route). Yani “herhangi bir hedef tanımlanmadıysa, bu yoldan git”.
+Firewall / AWS SG	“Her IP’den gelen bağlantılara izin ver.”
+Sunucu Bind	“0.0.0.0 IP’sine bind” demek: “Bu makinedeki tüm ağ arayüzlerinden gelen bağlantıları dinle.”
+
+6️⃣ Örneklerle:
+Senaryo	Açıklama
+ping 0.0.0.0	Çalışmaz → çünkü gerçek bir cihaz adresi değildir.
+Web sunucusu “0.0.0.0:8080” dinliyorsa	Tüm ağ arayüzlerinden 8080 portunu dinler.
+Routing tablosunda “0.0.0.0/0 via 192.168.1.1”	Varsayılan rota → bilinmeyen adresler modeme gitsin.
+
+Özet:
+İfade	Anlamı
+0.0.0.0	“Tüm IP adreslerini kapsar”
+/0	“Tüm adres aralığını kapsar”
+0.0.0.0/0	“Tüm internet”
+Güvenlik grubunda	“Her yerden erişim izni ver”
+Routing tablosunda	“Varsayılan rota”
