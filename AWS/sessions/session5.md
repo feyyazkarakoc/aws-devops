@@ -24,7 +24,7 @@ Network ayarları (subnet, VPC vs.)
 
 Yani manuel EC2 oluşturmak yerine, bu bilgileri bir şablonda tutarsın ve otomatik, tutarlı, tekrar edilebilir instance’lar oluşturursun.
 
-🎯 1️⃣ AWS Practitioner (Temel Düzey – İşlevi Anlama Odaklı)
+1️⃣ AWS Practitioner (Temel Düzey – İşlevi Anlama Odaklı)
 
 Bakış açısı: “Launch Template nedir, neden var?”
 
@@ -44,7 +44,7 @@ Kavrayacağı düzey:
 
 Launch Template = EC2 başlatma ayarlarını kaydeden bir şablondur, zamandan ve hatadan tasarruf sağlar.
 
-🧰 2️⃣ DevOps Engineer (Otomasyon & CI/CD Odaklı)
+2️⃣ DevOps Engineer (Otomasyon & CI/CD Odaklı)
 
 Bakış açısı: “Bunu nasıl otomatikleştiririm?”
 
@@ -60,7 +60,7 @@ Versioning destekler → her değişiklikte yeni bir sürüm oluşturabilirsin (
 
 Terraform, CloudFormation, Ansible gibi araçlarla otomatik olarak oluşturulabilir.
 
-🧩 DevOps için kritik kullanım örnekleri:
+DevOps için kritik kullanım örnekleri:
 
 Jenkins pipeline’da yeni sürüm deploy edileceğinde Launch Template v3 kullan.
 
@@ -72,7 +72,7 @@ Kavrayacağı düzey:
 
 Launch Template = Otomatik ölçeklenen, versiyonlanabilen, CI/CD süreçlerinde kullanılan EC2 yapılandırma şablonudur.
 
-🏗️ 3️⃣ Cloud Architect (Mimari & Tasarım Odaklı)
+3️⃣ Cloud Architect (Mimari & Tasarım Odaklı)
 
 Bakış açısı: “Bu yapıyı nasıl en verimli, güvenli ve ölçeklenebilir hale getiririm?”
 
