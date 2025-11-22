@@ -1620,3 +1620,197 @@ google.com:80 → 88.245.22.19:3456
 MODEM NAT TABLOSUNA BAKAR:
 "88.245.22.19:3456'ya gelen bu cevabı 
  192.168.1.101:3456'ya yönlendir
+
+ # Domain (alan adı) konusu; DNS, ICANN, Registrar gibi kavramlarla iç içedir:
+
+1. Domain Name Nedir?
+
+Domain, bir web sitesinin insanların okuyabileceği adıdır.
+
+Örnek:
+
+İnsanların gördüğü	Makinenin asıl gördüğü
+google.com	142.250.74.14
+
+Domain = IP adresine takılan etiket (alias).
+
+2. Domain’i Kim Dağıtıyor? Sistemde Roller Kimdir?
+
+Domain sisteminde 3 önemli oyuncu vardır:
+
+Rol	Ne yapar?
+ICANN (en üst otorite)	Tüm domain sistemini yönetir, kurallar koyar
+Registry	.com, .net, .org, .tr gibi uzantıların veritabanını tutan kurum
+Registrar	Domain’i satın aldığımız aracı firma (GoDaddy, Namecheap, TurHost vs.)
+
+Örnek:
+
+Uzantı	Registry
+.com	Verisign
+.tr	NIC.TR
+.org	Public Interest Registry
+
+Yani:
+
+ICANN → sistemi yöneten devlet gibi
+
+Registry → domain uzantılarının nüfus dairesi
+
+Registrar → vatandaşa işlem yapan nüfus memuru gibi
+
+3. Domain Name Nasıl Alınır?
+
+Adımlar:
+
+Bir registrar sitesine girersin
+(GoDaddy, Namecheap, Google Domains, Turhost, IHS, Odeaweb vs.)
+
+Almak istediğin alan adını ararsın
+ör: example.com
+
+Eğer boşta ise satın alırsın
+
+Registrar, bu domain’i registry’e kaydeder
+
+Domain sana tahsis edilmiş olur (genelde yıllık ödeme ile)
+
+4. Aynı Domain’in Tekrar Verilmediğinden Nasıl Emin Olunuyor?
+
+Her domain KÜRESEL BİR KAYIT SİSTEMİNDE tutulur.
+
+Bir domain sadece 1 kişiye tanımlanabilir (UNIQ olmak zorunda)
+google.com → başka hiç kimse alamaz
+youtube.com → tek kişi/kurum tarafından sahiplenilebilir
+
+Bu kayıtlar DNS Registry Database üzerinde tutulur ve Registrar satın aldığında sistem otomatik olarak:
+
+“Bu domain zaten alınmış” veya
+“Bu domain müsaittir”
+
+diye kontrol ederek cevap verir.
+
+Bu yüzden dünyada iki kişi aynı domain’e sahip olamaz.
+
+5. Domain Alınca Süresiz Sahip Oluyor muyuz?
+
+Hayır.
+
+Domain → kiralanır
+Yıllık ya da 5 yıllık, 10 yıllık uzatılabilir.
+
+Ödeme yapmayı bırakırsan:
+
+Domain süresi biter
+
+Grace Period’e girer
+
+Sonra sistem tekrar satışa çıkarabilir
+
+6. Domain Aldık → Peki Siteye Nasıl Bağlanıyor?
+
+Domain = isim
+Hosting / server = ev
+
+Alan adını aldığın yerde DNS ayarı yaparsın ve:
+
+mywebsite.com → (A kaydı) → 78.173.xx.xx
+
+şeklinde IP adresine yönlendirirsin.
+
+Tarayıcı da şöyle çalışır:
+
+Adam adres çubuğuna mywebsite.com yazar
+
+DNS bunu IP’ye çevirir
+
+IP’ye gider, siteyi açar
+
+Kısa Özet:
+Konu	Cevap
+Domain uniq mi?	 Evet, tüm dünyada tektir
+Kim dağıtıyor?	ICANN → Registry → Registrar zinciri
+Nereden alınır?	Registrar firmalarından
+Süreli mi?	Evet, yıllık kiralanır
+Neden uniq?	DNS global veritabanında saklandığı için
+
+# DNS (Domain Name System):
+
+1. DNS Nedir?
+
+DNS, internetin telefon rehberidir.
+
+İnsanlar isim hatırlar → google.com
+
+Bilgisayarlar IP adresi hatırlar → 142.250.74.14
+
+DNS’in görevi:
+
+Alan adını (domain) IP adresine çevirmek
+
+Bu çevirme işlemine Name Resolution (İsim Çözümleme) denir.
+
+2. Neden DNS’e İhtiyaç Vardır?
+
+Düşün: Her girdiğin site bir IP adresi olsaydı:
+
+Google’a girmek için → 142.250.74.14
+
+YouTube için → 142.250.81.78
+
+Facebook için → 157.240.20.35
+
+İnsan bunu hatırlayamaz.
+
+Tıpkı telefonda:
+
+“Ara → Ali” dersin, rehber “Ali = 0532…“ diye numarayı bulur.
+
+DNS de aynısını yapar: “google.com = 142.250.xx.xx”
+
+3. DNS Nasıl Çalışır? (Adım Adım)
+
+Bir siteye girdiğinde tarayıcı şöyle bir yol izler:
+
+Sıra	Soru	Cevabı Nereden Alır?
+1	google.com’un IP’si bende var mı?	Bilgisayar DNS Cache
+2	Yoksa modemden sorayım	Modem DNS Cache
+3	O da bilmiyorsa DNS Server’a sorayım	ISP DNS / Google DNS
+
+DNS server da şuradan öğrenir:
+
+Root DNS
+
+Top-level Domain Server (.com, .net, .org ...)
+
+Authoritative DNS (domainin gerçek kayıt sunucusu)
+
+En sonunda IP’yi bulur ve tarayıcıya cevap verir.
+
+4. DNS Olmasaydı Ne Olurdu?
+
+Her siteye IP ile girmek zorunda kalırdın.
+
+Örnek:
+
+http://142.250.74.14    zor
+http://google.com       kolay
+
+5. DNS Server Örnekleri:
+Sağlayıcı	DNS Adresi
+Google	8.8.8.8 ve 8.8.4.4
+Cloudflare	1.1.1.1
+OpenDNS	208.67.222.222
+TTNET	ISS’in verdiği otomatik DNS
+
+Tarayıcı çalışırken önce DNS’e gider, IP’yi alır, sonra asıl trafik başlar.
+
+6. DNS ile Domain Arasındaki İlişki
+Kavram	Görev
+Domain	İnsanların yazdığı isim
+DNS	O ismin IP karşılığını bulan sistem
+
+İkisi ayrı şeydir ama birlikte çalışır.
+
+7. Özetle Tek Cümle
+
+DNS: Domain isimlerini IP adreslerine çeviren küresel dağıtık sistemdir.
